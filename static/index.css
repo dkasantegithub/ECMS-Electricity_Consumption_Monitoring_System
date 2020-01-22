@@ -1,0 +1,28 @@
+body{ 
+    
+    margin-top:5%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.container-fluid{
+    margin-bottom: 5%;
+    margin-bottom: 10%;
+}
+.card-body-login {
+    color:black;
+    border:3px ridge;
+    border-radius:5%;
+}
+
+
+
+.btn{
+    font-family: Georgia, 'Times New Roman', Times, serif;    
+    font-size: large;
+    font-weight: 500;
+}
