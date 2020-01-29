@@ -3,9 +3,9 @@
     session_start();
 
     //Connection to database
-    $server = "localhost";
-    $username = "ddasante";
-    $password = "da1vi2d345";
+    $server = "127.0.0.1:3308";
+    $username = "root";
+    $password = "";
     $dbname = "ecms";
     try{
         $connection = new PDO("mysql:host=$server;dbname=$dbname", $username, $password);
