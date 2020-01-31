@@ -4,6 +4,7 @@ require_once("../php-files/connection.inc.php");
 include("includes/header.php"); 
 include("includes/navbar.php"); 
 
+    //signup function
     if(isset($_POST["signup"])){
         $fname = $_POST["fname"];
         $lname = $_POST["lname"];
@@ -18,6 +19,7 @@ include("includes/navbar.php");
             $error = $user->sError;
         }
     }
+
 ?>
 
 
@@ -153,7 +155,10 @@ include("includes/navbar.php");
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
                             <td><?php echo htmlspecialchars($row["date"] . " : " . $row["time"]); ?></td>
                             <td> 
-                                <button type="submit" class="btn btn-success">EDIT</button>
+                                <form action="register_edit.php" method="post">
+                                    <input type="hidden" name="edit_id" value="<?php echo htmlspecialchars($row["admin_id"]); ?>">
+                                    <button type="submit" name="edit_btn" class="btn btn-success">EDIT</button>
+                                </form>
                             </td>
                             <td> 
                                 <button type="submit" class="btn btn-danger">DELETE</button>

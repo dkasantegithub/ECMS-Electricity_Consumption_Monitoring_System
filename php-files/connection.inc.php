@@ -11,7 +11,7 @@
         $connection = new PDO("mysql:host=$server;dbname=$dbname", $username, $password);
         //set the PDO error mode to exception
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "<script>alert('DB Connection was successfull.');</script>";
+        echo "";
 
     }catch(PDOException $e){
         echo "Connection failed:" . $e->getMessage();
