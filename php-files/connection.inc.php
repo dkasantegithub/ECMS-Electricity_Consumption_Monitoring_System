@@ -11,10 +11,10 @@
         $connection = new PDO("mysql:host=$server;dbname=$dbname", $username, $password);
         //set the PDO error mode to exception
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "";
+        echo "<script>alert('DB Connection was successfull.');</script>";
 
     }catch(PDOException $e){
-        echo "Connection failed: " . $e->getMessage();
+        echo "Connection failed:" . $e->getMessage();
     }
 
     //include user class 

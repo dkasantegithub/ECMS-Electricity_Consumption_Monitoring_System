@@ -44,7 +44,7 @@
             <h2>Sign-In</h2>
         </div>  
 
-         <!-- display error -->
+        <!-- display error -->
         <?php if(isset($error)) {  ?>
             <div class="alert alert-danger error text-center mb-3">
                 <i class="glyphicon glyphicon-warning-sign"></i>

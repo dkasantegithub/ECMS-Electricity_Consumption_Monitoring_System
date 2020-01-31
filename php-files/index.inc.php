@@ -1,15 +1,10 @@
 <?php
 
     class User {
+        //properties
         private $db;
         public $loginError;
-        public $signupError;
-        public $ferror;
-        public $lerror;
-        public $uerror; 
-        public $eerror;
-        public $perror;
-        public $ecpwd;
+        public $sError;
 
         //connection to database
         public function __construct($db_connection) {
@@ -51,58 +46,84 @@
             }
         }
 
+
+
         //Signup page
         public function signup($fname, $lname, $username, $email, $password, $cpassword){
+            //trim input
             $fname = $this->validate_data($fname);
             $lname = $this->validate_data($lname);
             $username = $this->validate_data($username);
             $email = $this->validate_data($email);
             $password = $this->validate_data($password);
-            $cpassword = $this->validate_name($cpassword);
+            $cpassword = $this->validate_data($cpassword);
 
+            //check whether input is empty
             if(empty($fname) || empty($lname) || empty($username) || empty($email)
              || empty($password) || empty($cpassword)){
-                $this->signupError = "Input fields are required";
+                $this->sError = "Input fields are required";
+                
+            //validate names
+            }elseif(!$this->validate_name($fname) || !$this->validate_name($lname) || 
+                    !$this->validate_name($username)){
+                        $this->sError = "Names should be only alphabets";
 
-            }elseif(!$this->validate_name($fname)){
-                $this->fname = "only alphabets,',- are required";
-            }elseif(!$this->character_len($fname, 12)){
-                $this->fname = "name is too long";
-            }elseif(!$this->validate_name($lname)){
-                $this->lname = "only alphabets,',- are required";
-            }elseif(!$this->character_len($lname, 12)){
-                $this->lname = "name is too long";
-            }elseif(!$this->validate_name($username)){
-                $this->username = "only alphabets,',- are required";
-            }elseif(!$this->character_len($username, 12)){
-                $this->username = "name is too long";
-            }elseif($this->email($email)){
-                $this->eerror = "Invalid email format";
-            }elseif($this->password != $this->cpassword){
-                $this->ecpwd = "password must match";
+            //validate name-length
+            }elseif(!$this->character_len($fname, 20) || !$this->character_len($lname, 20) || 
+                    !$this->character_len($username, 20)){
+                        $this->sError = "Names should be less than 20 characters";
+            
+            //validate email
+            }elseif(!$this->email($email)){
+                        $this->sError = "Invalid email format";
+            
+            //validate password
+            }elseif(!$this->validate_pwd($password)){
+                        $this->sError = "Password must be atleast 10 characters";
+            
+            //confirm password
+            }elseif($password != $cpassword){
+                        $this->sError = "passwords must match";
+
             }else{
                 try{
+                    //check whether username or email exist
+                    $check = $this->db->prepare("SELECT username, email FROM adminregister 
+                    WHERE username=:uname OR email=:umail");
+                    $check->execute(array(':uname'=>$username, ':umail'=>$email));
+                    $row = $check->fetch(PDO::FETCH_ASSOC);
+
+                    if($row['username']==$username){
+                        $this->sError = "username already exist!";
+
+                    }elseif($row['email']==$email){
+                        $this->sError = "email already exist!";
+
+                    }else{
                     //hash password
                     $pwd = password_hash($password, PASSWORD_DEFAULT);
                     
                     //insert data into db
-                    $stmt = $this->db->prepare("INSERT INTO signup(fname, lname, username, email, password)
-                            VALUES(:fname, :lname, :username, :email, :password)");
+                    $stmt = $this->db->prepare("INSERT INTO adminregister(fname, lname, username, email, password)
+                    VALUES(:fname, :lname, :username, :email, :password)");
 
                             $stmt->bindparam(":fname", $fname);
                             $stmt->bindparam(":lname", $lname);
                             $stmt->bindparam(":username", $username);
                             $stmt->bindparam(":email", $email);
-                            $stmt->bindparam(":password", $password);
+                            $stmt->bindparam(":password", $pwd);
                             $stmt->execute();
-
                             return $stmt;
+                    }
 
                 }catch(PDOException $e){
-                    echo "Signup Error: " .$e->getMessage();
+                      $this->sError = "Signup Error: " .$e->getMessage();
                 }
+                $this->db = null;
             }
         }
+
+
 
         //is logged in
         public function is_loggedin(){
@@ -118,23 +139,27 @@
             return true;
         }
 
+           //Redirect
+        public function redirect($page){
+            return header("location: $page");
+        }
+
         //remove unnecessary characters from input
         private function validate_data($data){
-
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
             return $data;
         }
 
-        //Redirect
-        public function redirect($page){
-            return header("location: $page");
-        }
-
         //validate text input
         private function validate_name($name){
-            return preg_match("/^[a-zA-Z'-]+$/", $name);
+            return preg_match("/^[a-zA-Z]+$/", $name);
+        }
+
+         //validate name length
+        private function character_len($char, $max){
+            return strlen($char) < $max;
         }
 
         //validate email
@@ -142,9 +167,12 @@
             return filter_var($email,FILTER_VALIDATE_EMAIL);
         }
 
-        //validate name length
-        private function character_len($char, $max){
-            return strlen($char) < $max;
+          //validate password
+        private function validate_pwd($pwd){
+            return preg_match("/^[a-zA-Z0-9-@#'$]{10,}+$/", $pwd);
         }
+        
+
+       
     }
 ?>
