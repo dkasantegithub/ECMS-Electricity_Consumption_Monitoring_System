@@ -1,11 +1,11 @@
 <?php 
-require_once("../php-files/connection.inc.php");
-
+include("security.inc.php");
+if(!$_SESSION["superadmin"]){
+    $user->redirect('index.php');
+    }
 include("includes/header.php"); 
-include("includes/navbar.php"); 
+//include("includes/navbar.php"); 
 ?>
-
-
 
 <div class="container-fluid">
     <!-- data table -->
@@ -16,7 +16,6 @@ include("includes/navbar.php");
         </div>
 
         <div class="card-body">
-
         <?php
             //edit function
             if(isset($_POST["edit_btn"])){
@@ -26,10 +25,54 @@ include("includes/navbar.php");
                 $stmt = $connection->prepare("SELECT * FROM adminregister WHERE admin_id=:id");
                 $stmt->execute(array(":id"=>$id));
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+            }
+
+            //make updates
+            if(isset($_POST["update_btn"])){
+                    $id = trim(htmlspecialchars($_POST["edit_id"]));
+                    $fname = trim(htmlspecialchars($_POST["fname"]));
+                    $lname = trim(htmlspecialchars($_POST["lname"]));
+                    $username = trim(htmlspecialchars($_POST["username"]));
+                    $email = trim(htmlspecialchars($_POST["email"]));
+                    $password = trim(htmlspecialchars($_POST["password"]));
+                    $role = trim(htmlspecialchars($_POST["role"]));
+
+                    $stmt = $connection->prepare("UPDATE adminregister SET fname='$fname', lname='$lname',
+                            username='$username', email='$email', password='$password', admin_role='$role' WHERE admin_id='$id'");
+                    $success = $stmt->execute();
+
+                    if($success){
+                        $_SESSION["msg"] = "<script>alert('Update successfull.');</script>";
+                        header("location: register.php");
+                    }else{
+                        $_SESSION["msg"] = "<script>alert('Update NOT successfull.');</script>";
+                        header("location: register.php");
+                    }
+                }
+            
+            
+            //delete data from DB
+            if(isset($_POST["delete_btn"])){
+                $id = trim(htmlspecialchars($_POST["delete_id"]));
+
+                $stmt = $connection->prepare("DELETE FROM adminregister WHERE admin_id='$id'");
+                 $success = $stmt->execute();
+
+                if($success){
+                    $_SESSION["msg"] = "<script>alert('Data is successfully DELETED.');</script>";
+                    header("location: register.php");
+                }else{
+                    $_SESSION["msg"] = "<script>alert('Data NOT DELETED.');</script>";
+                    header("location: register.php");
+                }
+            }
+
 
         ?>
         
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <input type="hidden" name="edit_id" value="<?php echo $row['admin_id']; ?>">
+
          <!-- firstname-->
             <div class="form-group">
                 <label>First Name</label>
@@ -63,12 +106,21 @@ include("includes/navbar.php");
                 <input type="password" name="password" value="<?php echo $row['password']; ?>" class="form-control" required>
             </div>
 
+             <!--role-->
+            <div class="form-group">
+                <label>Role</label>
+                <select name="role" class="form-control">
+                    <option value="admin">Admin</option>
+                    <option value="superadmin">Super-admin</option>
+                </select>
+            </div>
+
             <!-- Button -->
             <div class="text-right">
                 <a href="register.php" class="btn btn-danger">Cancel</a>
-                <button type="submit" name="signup" class="btn btn-primary">Update</button>
+                <button type="submit" name="update_btn" class="btn btn-primary">Update</button>
             </div>
-
+        </form>
         </div>
     </div>
 </div>

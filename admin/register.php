@@ -1,6 +1,8 @@
 <?php 
-require_once("../php-files/connection.inc.php");
-
+include("security.inc.php");
+ if(!empty($_SESSION["username"])  && !$_SESSION["superadmin"]){
+        $user->redirect('index.php');
+    }
 include("includes/header.php"); 
 include("includes/navbar.php"); 
 
@@ -12,14 +14,16 @@ include("includes/navbar.php");
         $email = $_POST["email"];
         $pwd = $_POST["password"];
         $cpwd = $_POST["cpwd"];
+        $role = $_POST["role"];
 
-        if($user->signup($fname, $lname, $username, $email, $pwd, $cpwd)){
-            echo "<script>alert('Registration successfull.');</script>";
+        if($user->signup($fname, $lname, $username, $email, $pwd, $cpwd,$role)){
+            $_SESSION["msg"] = "<script>alert('Registration successfull.');</script>";
+
         }else{
-            $error = $user->sError;
+            $_SESSION["error"] = $user->sError;
         }
+            
     }
-
 ?>
 
 
@@ -35,14 +39,7 @@ include("includes/navbar.php");
       </div>
 
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="modal-body">
-        <!-- display error -->
-        <?php if(isset($error)) {  ?>
-            <div class="alert alert-danger text-danger text-center mb-3">
-              <?php echo $error; ?>
-            </div>
-        <?php } ?> 
-            
+        <div class="modal-body">        
             <!-- firstname-->
             <div class="form-group">
                 <label>First Name</label>
@@ -81,6 +78,9 @@ include("includes/navbar.php");
                 <input type="password" name="cpwd" class="form-control" placeholder="confirm password" required>
             </div>
 
+            <!-- Role -->
+            <input type="hidden" name="role" value="admin">
+
             <!-- Button -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -106,16 +106,18 @@ include("includes/navbar.php");
                 </button>
             </h6>
         </div>
-
-        
+    
     <!-- display error -->
-    <?php if(isset($error)) {  ?>
-        <div class="alert alert-danger text-danger text-center mb-3">
-            <?php echo $error; ?>*
-        </div>
-    <?php } ?> 
-
-
+    <?php
+            if(isset($_SESSION["msg"]) && !empty($_SESSION["msg"])){
+                echo $_SESSION["msg"];
+                unset($_SESSION["msg"]);
+            }
+            if(isset($_SESSION["error"]) && !empty($_SESSION["error"])){
+                echo "<div class='alert alert-danger text-center text-danger'>". $_SESSION["error"] . "</div>";
+                unset($_SESSION["error"]);
+            }
+      ?>
         <div class="card-body">
             <div class="table-responsive">
                 <?php
@@ -136,6 +138,7 @@ include("includes/navbar.php");
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Date : Time Created</th>
                             <th>EDIT</th>
                             <th>DELETE</th>
@@ -153,6 +156,7 @@ include("includes/navbar.php");
                             <td><?php echo htmlspecialchars($row["fname"] . " " . $row["lname"]);?></td>
                             <td><?php echo htmlspecialchars($row["username"]); ?></td>
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
+                            <td><?php echo htmlspecialchars($row["admin_role"]); ?></td>
                             <td><?php echo htmlspecialchars($row["date"] . " : " . $row["time"]); ?></td>
                             <td> 
                                 <form action="register_edit.php" method="post">
@@ -161,7 +165,10 @@ include("includes/navbar.php");
                                 </form>
                             </td>
                             <td> 
-                                <button type="submit" class="btn btn-danger">DELETE</button>
+                                <form action="register_edit.php" method="post">
+                                    <input type="hidden" name="delete_id" value="<?php  echo htmlspecialchars($row["admin_id"]); ?>">
+                                    <button type="submit" name="delete_btn" class="btn btn-danger">DELETE</button>
+                                </form>
                             </td>
                         </tr>
                         <?php }

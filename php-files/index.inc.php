@@ -22,7 +22,7 @@
             }else{
                 try{
                     #fetch data from database
-                    $stmt = $this->db->prepare("SELECT * FROM signup WHERE username=:username OR email=:email LIMIT 1");
+                    $stmt = $this->db->prepare("SELECT * FROM adminregister WHERE username=:username OR email=:email LIMIT 1");
                     $stmt->execute(array(":username"=>$username, ":email"=>$email));
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -30,6 +30,7 @@
                     if($stmt->rowCount() >  0){
                         if(password_verify($password, $row["password"])){
                         $_SESSION["user_session"] = $row["admin_id"];
+                        
                         return true;
                         }else{
                         $this->loginError = "Username or password is incorrect";
@@ -49,7 +50,7 @@
 
 
         //Signup page
-        public function signup($fname, $lname, $username, $email, $password, $cpassword){
+        public function signup($fname, $lname, $username, $email, $password, $cpassword, $role){
             //trim input
             $fname = $this->validate_data($fname);
             $lname = $this->validate_data($lname);
@@ -104,8 +105,8 @@
                     $pwd = password_hash($password, PASSWORD_DEFAULT);
                     
                     //insert data into db
-                    $stmt = $this->db->prepare("INSERT INTO adminregister(fname, lname, username, email, password)
-                    VALUES(:fname, :lname, :username, :email, :password)");
+                    $stmt = $this->db->prepare("INSERT INTO adminregister(fname, lname, username, email, password, admin_role)
+                    VALUES(:fname, :lname, :username, :email, :password, '$role')");
 
                             $stmt->bindparam(":fname", $fname);
                             $stmt->bindparam(":lname", $lname);
@@ -132,6 +133,14 @@
             }
         }
 
+        //is loggedin as
+        // public function loggedin_as(){
+
+        //     if(isset($_SESSION["user_session"])){
+        //         return $_SESSION["user_session"];
+        //     }
+        // }
+
         //logout
         public function logout(){
             session_destroy();
@@ -140,9 +149,9 @@
         }
 
            //Redirect
-        public function redirect($page){
-            return header("location: $page");
-        }
+            public function redirect($page){
+                return header("Location: $page");
+            }
 
         //remove unnecessary characters from input
         private function validate_data($data){
