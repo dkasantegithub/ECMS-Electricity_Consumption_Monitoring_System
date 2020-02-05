@@ -7,35 +7,40 @@
         $email = $_POST["user_email"];
         $password = $_POST["password"];
 
-        #fetch data from database
-        $stmt = $connection->prepare("SELECT * FROM adminregister WHERE username='$username' OR email='$email' LIMIT 1");
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if(!empty($_POST["user_email"]) && !empty($_POST["password"])){
+            #fetch data from database
+            $stmt = $connection->prepare("SELECT * FROM adminregister WHERE username='$username' OR email='$email' LIMIT 1");
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        //verify whether data exists
-        if($stmt->rowCount() >  0){
-            if(password_verify($password, $row["password"])){
-                $role = $row["admin_role"];
-               
-                //set session for admin
-                if($role == "admin"){
-                    $admin = $role;
-                    $_SESSION["username"] = $username;
-                    $_SESSION["admin"] = $admin;
-                    header("Location: index.php");
+            //verify whether data exists
+            if($stmt->rowCount() >  0){
+                if(password_verify($password, $row["password"])){
+                    $role = $row["admin_role"];
+                
+                    //set session for admin
+                    if($role == "admin"){
+                        $admin = $role;
+                        $_SESSION["username"] = $username;
+                        $_SESSION["admin"] = $admin;
+                        header("Location: index.php");
 
-                //set session for superadmin
-                }elseif($role == "superadmin"){
-                    $superadmin = $role;
-                    $_SESSION["username"] = $username;
-                    $_SESSION["superadmin"] = $superadmin;
-                    header("Location: register.php");
+                    //set session for superadmin
+                    }elseif($role == "superadmin"){
+                        $superadmin = $role;
+                        $_SESSION["username"] = $username;
+                        $_SESSION["superadmin"] = $superadmin;
+                        header("Location: register.php");
+
+                    }else{  $error = "Username or password is incorrect"; }
 
                 }else{  $error = "Username or password is incorrect"; }
 
-            }else{  $error = "Username or password is incorrect"; }
-
-        }else{  $error = "Username or password is incorrect";  }
+            }else{  $error = "Username or password is incorrect";  }
+        }else{
+            $error = "Username or password is required";
+        }
     }
 ?>
 
