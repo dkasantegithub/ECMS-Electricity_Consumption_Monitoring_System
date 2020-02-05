@@ -103,7 +103,7 @@
       <!-- Nav Item - Notifications -->
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-bell fa-fw"></i>
           <span>Notifications</span></a>
       </li>
 
