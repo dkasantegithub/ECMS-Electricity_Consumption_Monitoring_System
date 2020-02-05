@@ -4,7 +4,7 @@ if(!$_SESSION["superadmin"]){
     $user->redirect('index.php');
     }
 include("includes/header.php"); 
-//include("includes/navbar.php"); 
+//include("includes/s_navbar.php"); 
 ?>
 
 <div class="container-fluid">
@@ -16,7 +16,7 @@ include("includes/header.php");
         </div>
 
         <div class="card-body">
-        <?php
+            <?php
             //edit function
             if(isset($_POST["edit_btn"])){
                 $id = $_POST["edit_id"];
@@ -69,58 +69,60 @@ include("includes/header.php");
 
 
         ?>
-        
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <input type="hidden" name="edit_id" value="<?php echo $row['admin_id']; ?>">
 
-         <!-- firstname-->
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" name="fname" value="<?php echo $row['fname']; ?>" class="form-control" required>
-            </div>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <input type="hidden" name="edit_id" value="<?php echo $row['admin_id']; ?>">
 
-            <!-- lastname-->
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" name="lname" value="<?php echo $row['lname']; ?>" class="form-control" required>
-            </div>
+                <!-- firstname-->
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" name="fname" value="<?php echo $row['fname']; ?>" class="form-control" required>
+                </div>
 
-
-            <!-- username-->
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" value="<?php echo $row['username']; ?>" class="form-control" required>
-            </div>
+                <!-- lastname-->
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" name="lname" value="<?php echo $row['lname']; ?>" class="form-control" required>
+                </div>
 
 
-            <!-- email-->
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" value="<?php echo $row['email']; ?>" class="form-control" required>
-            </div>
+                <!-- username-->
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" value="<?php echo $row['username']; ?>" class="form-control"
+                        required>
+                </div>
 
 
-            <!--password-->
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" value="<?php echo $row['password']; ?>" class="form-control" required>
-            </div>
+                <!-- email-->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="<?php echo $row['email']; ?>" class="form-control" required>
+                </div>
 
-             <!--role-->
-            <div class="form-group">
-                <label>Role</label>
-                <select name="role" class="form-control">
-                    <option value="admin">Admin</option>
-                    <option value="superadmin">Super-admin</option>
-                </select>
-            </div>
 
-            <!-- Button -->
-            <div class="text-right">
-                <a href="register.php" class="btn btn-danger">Cancel</a>
-                <button type="submit" name="update_btn" class="btn btn-primary">Update</button>
-            </div>
-        </form>
+                <!--password-->
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" value="<?php echo $row['password']; ?>" class="form-control"
+                        required>
+                </div>
+
+                <!--role-->
+                <div class="form-group">
+                    <label>Role</label>
+                    <select name="role" class="form-control">
+                        <option value="admin">Admin</option>
+                        <option value="superadmin">Super-admin</option>
+                    </select>
+                </div>
+
+                <!-- Button -->
+                <div class="text-right">
+                    <a href="register.php" class="btn btn-danger">Cancel</a>
+                    <button type="submit" name="update_btn" class="btn btn-primary">Update</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
