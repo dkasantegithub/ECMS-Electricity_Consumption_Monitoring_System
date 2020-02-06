@@ -46,7 +46,7 @@
 
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
               aria-expanded="true" aria-controls="collapseUtilities">
               <i class="fas fa-fw fa-wrench"></i>
@@ -62,7 +62,7 @@
                   <a class="collapse-item" href="#">Utilities D</a>
               </div>
           </div>
-      </li>
+      </li> -->
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -87,21 +87,21 @@
       </li>
 
 
-        <!-- Nav Item - Logout -->
-        <li class="nav-item">
-            <a class="nav-link" href="control.inc.php" data-toggle="modal" data-target="#logoutModal">
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                <span>Logout</span>
-            </a>
-        </li>
+      <!-- Nav Item - Logout -->
+      <li class="nav-item">
+          <a class="nav-link" href="control.inc.php" data-toggle="modal" data-target="#logoutModal">
+              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+              <span>Logout</span>
+          </a>
+      </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
 
   </ul>
   <!-- End of Sidebar -->
