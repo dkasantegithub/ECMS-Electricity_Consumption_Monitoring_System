@@ -133,14 +133,6 @@
             }
         }
 
-        //is loggedin as
-        // public function loggedin_as(){
-
-        //     if(isset($_SESSION["user_session"])){
-        //         return $_SESSION["user_session"];
-        //     }
-        // }
-
         //logout
         public function logout(){
             session_destroy();
@@ -148,10 +140,10 @@
             return true;
         }
 
-           //Redirect
-            public function redirect($page){
-                return header("Location: $page");
-            }
+        //Redirect
+        public function redirect($page){
+            return header("Location: $page");
+        }
 
         //remove unnecessary characters from input
         private function validate_data($data){
@@ -181,7 +173,5 @@
             return preg_match("/^[a-zA-Z0-9-@#'$]{10,}+$/", $pwd);
         }
         
-
-       
     }
 ?>

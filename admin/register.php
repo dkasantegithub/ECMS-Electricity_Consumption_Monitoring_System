@@ -27,69 +27,85 @@ include("includes/s_navbar.php");
 ?>
 
 
-<!-- Modal -->
-<div class="modal fade" id="addadminprofile" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Add Admin Info</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="modal-body">        
-            <!-- firstname-->
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" name="fname" class="form-control" placeholder="enter firstname" required>
+<!--Admin Modal -->
+<div class="modal fade" id="addadminprofile" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Add Admin Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
-            <!-- lastname-->
-            <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" name="lname" class="form-control" placeholder="enter lastname" required>
-            </div>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="modal-body">
+                    <!-- firstname-->
+                    <label for="fname">First name</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                        </div>
+                        <input type="text" class="form-control" id="fname" name="fname" required>
+                    </div>
+
+                    <!-- lastname-->
+                    <label for="lname">Last name</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                        </div>
+                        <input type="text" class="form-control" id="lname" name="lname" required>
+                    </div>
 
 
-            <!-- username-->
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control" placeholder="enter username" required>
-            </div>
+                    <!-- username-->
+                    <label for="username">Username</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <i class="input-group-text fa fa-user-circle fa-lg"></i>
+                        </div>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+
+                    <!-- email-->
+                    <label for="email">Email Address</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <i class="input-group-text fas fa-envelope fa-lg"></i>
+                        </div>
+                        <input type="text" class="form-control" id="email" name="email" required>
+                    </div>
 
 
-            <!-- email-->
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="enter email" required>
-            </div>
+                    <!--password-->
+                    <label for="password">Password</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <i class="input-group-text fa fa-key fa-lg"></i>
+                        </div>
+                        <input type="text" class="form-control" id="password" name="password" required>
+                    </div>
+                    <!--confirm password -->
+                    <label for="cpwd">Confirm Password</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <i class="input-group-text fa fa-key fa-lg"></i>
+                        </div>
+                        <input type="text" class="form-control" id="cpwd" name="cpwd" required>
+                    </div>
 
+                    <!-- Role -->
+                    <input type="hidden" name="role" value="admin">
 
-            <!--password-->
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="enter password" required>
-            </div>
-            <!--confirm password -->
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="cpwd" class="form-control" placeholder="confirm password" required>
-            </div>
-
-            <!-- Role -->
-            <input type="hidden" name="role" value="admin">
-
-            <!-- Button -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name="signup" class="btn btn-primary">Sign up</button>
-            </div>
+                    <!-- Button -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="signup" class="btn btn-primary">Sign up</button>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
 </div>
 
 
@@ -100,15 +116,16 @@ include("includes/s_navbar.php");
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-lg text-primary">Admin Info
-                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addadminprofile">
-                Add Admin
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+                    data-target="#addadminprofile">
+                    Add Admin
                 </button>
             </h6>
         </div>
-    
-    <!-- display error -->
-    <?php
+
+        <!-- display error -->
+        <?php
             if(isset($_SESSION["msg"]) && !empty($_SESSION["msg"])){
                 echo $_SESSION["msg"];
                 unset($_SESSION["msg"]);
@@ -147,7 +164,7 @@ include("includes/s_navbar.php");
 
                     <tbody>
 
-                    <?php 
+                        <?php 
                     if($stmt->rowCount() > 0){
                         while($row = $stmt->fetch()){
                         ?>
@@ -158,15 +175,17 @@ include("includes/s_navbar.php");
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
                             <td><?php echo htmlspecialchars($row["admin_role"]); ?></td>
                             <td><?php echo htmlspecialchars($row["date"] . " : " . $row["time"]); ?></td>
-                            <td> 
+                            <td>
                                 <form action="register_edit.php" method="post">
-                                    <input type="hidden" name="edit_id" value="<?php echo htmlspecialchars($row["admin_id"]); ?>">
+                                    <input type="hidden" name="edit_id"
+                                        value="<?php echo htmlspecialchars($row["admin_id"]); ?>">
                                     <button type="submit" name="edit_btn" class="btn btn-success">EDIT</button>
                                 </form>
                             </td>
-                            <td> 
+                            <td>
                                 <form action="register_edit.php" method="post">
-                                    <input type="hidden" name="delete_id" value="<?php  echo htmlspecialchars($row["admin_id"]); ?>">
+                                    <input type="hidden" name="delete_id"
+                                        value="<?php  echo htmlspecialchars($row["admin_id"]); ?>">
                                     <button type="submit" name="delete_btn" class="btn btn-danger">DELETE</button>
                                 </form>
                             </td>
