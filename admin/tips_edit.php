@@ -2,33 +2,7 @@
 include("security.inc.php");
 include("control.inc.php");
 include("includes/header.php"); 
-// include("includes/navbar.php"); 
-
-        // Tips
-        if(isset($_POST["tips"])){
-            $title = validate_data($_POST["title"]);
-            $tip = validate_data($_POST["tip"]);
-            // $customer_id = validate_data($_POST["tip"]);
-            // $login_id = validate_data($_POST["tip"]);
-
-            if(character_len($tip, 10)){
-                $_SESSION["error"] = "tip is too short";
-            }else{
-                try{
-                    //insert data into db
-                    $stmt = $connection->prepare("INSERT INTO conservationtips(title,tips,customer_id,login_id)
-                    VALUES('$title', '$tips', '$customer_id', '$login_id')");
-                    $stmt->execute();
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $_SESSION["msg"] = "<script>alert('Insertion of tips was successfull.');</script>";
-
-                }catch(PDOException $e){
-                    $_SESSION["error"] = "Error: " .$e->getMessage();
-                }
-            }
-
-        }
-        
+// include("includes/navbar.php");       
 ?>
 
 <div class="container-fluid">
@@ -43,47 +17,92 @@ include("includes/header.php");
         //edit function
         if(isset($_POST["edit_btn"])){
             $id = $_POST["edit_id"];
-
+            
             //retrieve data from table using id
-            $stmt = $connection->prepare("SELECT * FROM adminregister WHERE admin_id=:id");
+            $stmt = $connection->prepare("SELECT * FROM conservationtips WHERE id=:id");
             $stmt->execute(array(":id"=>$id));
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+
+        //update meter info
+        if(isset($_POST["update_btn"])){
+                $id = $_POST["edit_id"];
+                $title = validate_data($_POST["title"]);
+                $tips = validate_data($_POST["tip"]);
+
+
+                $user = $_SESSION["username"];
+                //fetch id from login table
+                $query = $connection->prepare("SELECT * FROM adminlogin WHERE user_email='$user' LIMIT 1");
+                $query->execute();
+                $fetch = $query->fetch(PDO::FETCH_ASSOC);
+
+                //fetch last id from admin login table
+                if($query->rowCount() >  0){
+                $login_id = $fetch["login_id"];
+
+                $state = $connection->prepare("UPDATE conservationtips SET title='$title', 
+                tips='$tips', login_id='$login_id' WHERE id='$id'");
+                $success = $state->execute();
+
+                }
+
+                if($success){
+                    $_SESSION["msg"] = "<script>alert('Update successfull.');</script>";
+                    header("location: tips.php");
+                }else{
+                    $_SESSION["msg"] = "<script>alert('Update NOT successfull.');</script>";
+                    header("location: tips.php");
+                }
+            }
+        
+        
+        //delete meter info from DB
+        if(isset($_POST["delete_btn"])){
+            $id = trim(htmlspecialchars($_POST["delete_id"]));
+
+            $stmt = $connection->prepare("DELETE FROM conservationtips WHERE id='$id'");
+                $success = $stmt->execute();                                                              
+                
+                if($success){
+                $_SESSION["msg"] = "<script>alert('Data is successfully DELETED.');</script>";
+                header("location: tips.php");
+            }else{
+                $_SESSION["msg"] = "<script>alert('Data NOT DELETED.');</script>";
+                header("location: tips.php");
+            }
         }
         
     ?>
 
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="modal-body">        
-            <!-- title-->
-           <div class="form-group">
-                    <label>Title</label>
-                    <select name="title" class="form-control">
-                        <option value="general">General tips</option>
-                        <option value="room gadgets">Room gadget tips</option>
-                        <option value="kitchen gadgets">kitchen gadget tips</option>
-                        <option value="cooling gadgets">cooling gadget tips</option>
-                    </select>
-                </div>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">  
+        <input type="hidden" name="edit_id" value="<?php echo htmlspecialchars($row["id"]); ?>">
 
-            <!-- tip-->
-            <div class="form-group">
-                <textarea name="tip" class="form-control" placeholder="enter tip" 
-                cols="15" rows="4"  required></textarea>
-            </div>
+        <!-- title-->
+        <div class="form-group">
+        <label>Title</label>
+        <select name="title" class="form-control">
+            <option value="general">General tips</option>
+            <option value="room gadgets">Room gadget tips</option>
+            <option value="kitchen gadgets">kitchen gadget tips</option>
+            <option value="cooling gadgets">cooling gadget tips</option>
+        </select>
+        </div>
 
-            <!-- Button -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name="tips" class="btn btn-primary">add tip</button>
-            </div>
+        <!-- tip-->
+        <div class="form-group">
+        <textarea name="tip" class="form-control" placeholder="enter tip" 
+        cols="15" rows="4" value="<?php echo htmlspecialchars($row["tips"] ?? ""); ?>"  required><?php echo htmlspecialchars($row["tips"] ?? ""); ?></textarea>
+        </div>
+
+        <!-- Button -->
+        <div class="modal-footer">
+        <a href="tips.php" class="btn btn-danger">Cancel</a>
+        <button type="submit" name="update_btn" class="btn btn-primary">Update</button>
         </div>
       </form>
-
-
-
-
-
 
 <?php
 include("includes/scripts.php");

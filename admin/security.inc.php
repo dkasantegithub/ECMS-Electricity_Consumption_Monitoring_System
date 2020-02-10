@@ -5,12 +5,4 @@
         $user->redirect('login.php');
     }
     
-    // elseif(isset($_SESSION["username"]) && !$_SESSION["superadmin"]){
-    //     $user->redirect('index.php');
-    // }elseif(isset($_SESSION["username"]) && !$_SESSION["admin"]){
-    //     $user->redirect('register.php');
-    // }else{
-
-    // }
-    
 ?>

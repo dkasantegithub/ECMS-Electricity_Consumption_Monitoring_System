@@ -7,21 +7,29 @@ include("includes/navbar.php");
         // Tips
         if(isset($_POST["tips"])){
             $title = validate_data($_POST["title"]);
-            $tip = validate_data($_POST["tip"]);
-            // $customer_id = validate_data($_POST["tip"]);
-            // $login_id = validate_data($_POST["tip"]);
+            $tips = validate_data($_POST["tip"]);
 
-            if(character_len($tip, 10)){
+            if(character_len($tips, 10)){
                 $_SESSION["error"] = "tip is too short";
             }else{
                 try{
-                    //insert data into db
-                    $stmt = $connection->prepare("INSERT INTO conservationtips(title,tips,customer_id,login_id)
-                    VALUES('$title', '$tips', '$customer_id', '$login_id')");
-                    $stmt->execute();
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $_SESSION["msg"] = "<script>alert('Insertion of tips was successfull.');</script>";
 
+                    $user = $_SESSION["username"];
+                    //fetch id from login table
+                    $query = $connection->prepare("SELECT * FROM adminlogin WHERE user_email='$user' LIMIT 1");
+                    $query->execute();
+                    $fetch = $query->fetch(PDO::FETCH_ASSOC); 
+
+                if($query->rowCount() >  0 ){
+                    $login_id = $fetch["login_id"];
+
+                    //insert data into db
+                    $stmt = $connection->prepare("INSERT INTO conservationtips(title, tips, login_id)
+                    VALUES('$title', '$tips', '$login_id')");
+                    $stmt->execute();
+
+                    $_SESSION["msg"] = "<script>alert('Insertion of tips was successfull.');</script>";
+                }
                 }catch(PDOException $e){
                     $_SESSION["error"] = "Error: " .$e->getMessage();
                 }

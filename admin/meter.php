@@ -5,71 +5,57 @@ include("includes/header.php");
 include("includes/navbar.php"); 
 
 
-
 //meter validation
-if(isset($_POST["customer_btn"])){
+if(isset($_POST["meter_btn"])){
 
     // remove unecessary characters
-    $fname = validate_data($_POST["fname"]);
-    $lname = validate_data($_POST["lname"]);
-    $contact =validate_data($_POST["contact"]);
-    $email = validate_data($_POST["email"]);
-    $username = validate_data($_POST["username"]);
-    $password = validate_data($_POST["password"]);
+    $m_number = validate_data($_POST["meter_number"]);
     $region = validate_data($_POST["region"]);
     $district = validate_data($_POST["district"]);
     $gpscode = validate_data($_POST["gpscode"]);
+    $status = validate_data($_POST["status"]);
 
-    if(!empty($fname) && !empty($lname) && !empty($contact) && !empty($email) && !empty($username) && 
-    !empty($password) && !empty($region) && !empty($district) && !empty($gpscode)){
+    if(!empty($m_number) && !empty($region) && !empty($district) && !empty($gpscode) && !empty($status)){
 
-        //validate names
-        if(!validate_name($fname) || !validate_name($lname) || !validate_name($username) || 
-        !validate_name($district)){
-            $_SESSION["error"] = "names should be only alphabets";
-
-        //validate name-length
-        }elseif(!character_len($fname) || !character_len($lname) || !character_len($username) || 
-        !character_len($district)){
-            $_SESSION["error"] = "names should be less than 20 characters";
-
-        // validate email
-        }elseif(!email($email)){
-             $_SESSION["error"] = "email format is invalid";
-        
-        // validate password
-        }elseif(!validate_pwd($password)){
-            $_SESSION["error"] = "Password must be atleast 10 characters";
+        //validate name
+        if(!validate_name($district)){
+            $_SESSION["error"] = "name should be only alphabets";
 
         }else{
             try{
-                 //check whether username or email exist
-                    $check = $connection->prepare("SELECT username, email FROM customer 
-                    WHERE username=:uname OR email=:umail");
-                    $check->execute(array(':uname'=>$username, ':umail'=>$email));
+                 //check whether meter number exist
+                    $check = $connection->prepare("SELECT meter_number FROM meter
+                    WHERE meter_number=:m_number");
+                    $check->execute(array(':m_number'=>$m_number));
                     $row = $check->fetch(PDO::FETCH_ASSOC);
 
-                    if($row['username']==$username){
-                        $_SESSION["error"] = "username already exist!";
-
-                    }elseif($row['email']==$email){
-                        $_SESSION["error"] = "email already exist!";
+                    if($row['meter_number']==$m_number){
+                        $_SESSION["error"] = "meter number already exist!";
 
                     }else{
-                    //hash password
-                    $pwd = password_hash($password, PASSWORD_DEFAULT);
-                    
-                    //insert data into db
-                    $stmt = $connection->prepare("INSERT INTO customer(fname, lname, username, email,
-                     password, contact, region, district, gpscode)
-                     VALUES('$fname', '$name', '$username', '$email', '$password', '$contact', '$region', 
-                            '$district', '$gpscode')");
+                    $user = $_SESSION["username"];
+                    //fetch id from login table
+                    $query = $connection->prepare("SELECT * FROM adminlogin WHERE user_email='$user' LIMIT 1");
+                    $query->execute();
+                    $fetch = $query->fetch(PDO::FETCH_ASSOC);
+
+                    //fetch last id from admin login table
+                    if($query->rowCount() >  0){
+                    $login_id = $fetch["login_id"];
+
+                    //insert data into meter table in db
+                    $stmt = $connection->prepare("INSERT INTO meter(meter_number, region, district, 
+                    gpscode, status, login_id) 
+                    VALUES('$m_number', '$region', '$district', '$gpscode', '$status', '$login_id')");
                     $stmt->execute();
+
+                    $_SESSION["msg"] = "<script>alert('Registration successfull.');</script>";
+                    }
                     
                     }
 
             }catch(PDOException $e){
-                $_SESSION["error"] = "Signup Error: " . $e->getMessage();
+                $_SESSION["error"] = "Meter Registration Error: " . $e->getMessage();
             }
         }
 
@@ -106,7 +92,7 @@ if(isset($_POST["customer_btn"])){
             
             <!-- region-->
             <div class="form-group"> 
-                <select class="form-control" name="region">
+                <select class="form-control" name="region" required>
                 <option value="">-regions-</option>
                 <option value="accra">Greater Accra</option>
                 <option value="ashanti">Ashanti</option>

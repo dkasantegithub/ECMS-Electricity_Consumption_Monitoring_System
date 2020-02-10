@@ -1,10 +1,8 @@
 <?php
 include("security.inc.php");
 include("control.inc.php");
-//require 'customer.inc.php';
 include("includes/header.php"); 
 include("includes/navbar.php"); 
-
 
 
 //customer validation
@@ -20,6 +18,7 @@ if(isset($_POST["customer_btn"])){
     $region = validate_data($_POST["region"]);
     $district = validate_data($_POST["district"]);
     $gpscode = validate_data($_POST["gpscode"]);
+    $meter_id = validate_data($_POST["meter_id"]);
 
     if(!empty($fname) && !empty($lname) && !empty($contact) && !empty($email) && !empty($username) && 
     !empty($password) && !empty($region) && !empty($district) && !empty($gpscode)){
@@ -30,8 +29,8 @@ if(isset($_POST["customer_btn"])){
             $_SESSION["error"] = "names should be only alphabets";
 
         //validate name-length
-        }elseif(!character_len($fname) || !character_len($lname) || !character_len($username) || 
-        !character_len($district)){
+        }elseif(!character_len($fname, 20) || !character_len($lname, 20) || !character_len($username, 20) || 
+        !character_len($district, 20)){
             $_SESSION["error"] = "names should be less than 20 characters";
 
         // validate email
@@ -44,6 +43,15 @@ if(isset($_POST["customer_btn"])){
 
         }else{
             try{
+                    $user = $_SESSION["username"];
+                 //fetch id from login table
+                    $query = $connection->prepare("SELECT * FROM adminlogin WHERE user_email='$user' LIMIT 1");
+                    $query->execute();
+                    $fetch = $query->fetch(PDO::FETCH_ASSOC);  
+
+                if($query->rowCount() >  0 ){
+                    $login_id = $fetch["login_id"];
+                
                  //check whether username or email exist
                     $check = $connection->prepare("SELECT username, email FROM customer 
                     WHERE username=:uname OR email=:umail");
@@ -62,12 +70,13 @@ if(isset($_POST["customer_btn"])){
                     
                     //insert data into db
                     $stmt = $connection->prepare("INSERT INTO customer(fname, lname, username, email,
-                     password, contact, region, district, gpscode)
-                     VALUES('$fname', '$name', '$username', '$email', '$password', '$contact', '$region', 
-                            '$district', '$gpscode')");
+                     password, contact, region, district, gpscode, login_id, meter_id)
+                     VALUES('$fname', '$lname', '$username', '$email', '$password', '$contact', '$region', 
+                            '$district', '$gpscode', '$login_id', '$meter_id')");
                     $stmt->execute();
                     
                     }
+                }
 
             }catch(PDOException $e){
                 $_SESSION["error"] = "Signup Error: " . $e->getMessage();
@@ -157,6 +166,21 @@ if(isset($_POST["customer_btn"])){
                 <input type="text" class="form-control" placeholder="gps-code" name="gpscode" required>
             </div>
 
+            <!-- meter number -->
+            <?php 
+                $cont = $connection->prepare("SELECT * FROM meter");
+                $cont->execute();
+                if($cont->rowCount() > 0){
+            ?>
+            <div class="form-group">
+                <select name="meter_id" class="form-control" required> 
+                <?php  foreach($cont as $collect){ ?>
+                    <option value="<?php echo htmlspecialchars($collect["meter_id"]); ?>"><?php echo htmlspecialchars($collect["meter_number"]); ?></option>
+                <?php } ?>
+                </select>
+            </div>
+            <?php } ?>
+
             <!-- button -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -197,9 +221,9 @@ if(isset($_POST["customer_btn"])){
         <div class="card-body">
             <div class="table-responsive">
                 <?php
-                //     #fetch data from database
+                // fetch data from database
                 try{
-                    $stmt = $connection->prepare("SELECT * FROM customer");
+                    $stmt = $connection->prepare("SELECT * FROM customer JOIN meter ON customer.meter_id=meter.meter_id");
                     $stmt->execute();
                     $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 }catch(PDOException $e){
@@ -212,12 +236,11 @@ if(isset($_POST["customer_btn"])){
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Username</th>
                             <th>Email</th>
-                            <th>Contact</th>
                             <th>Region</th>
                             <th>District</th>
                             <th>Gpscode</th>
+                            <th>Meter Number</th>
                             <th>Date Created</th>
                             <th>EDIT</th>
                             <th>DELETE</th>
@@ -233,12 +256,11 @@ if(isset($_POST["customer_btn"])){
                         <tr>
                             <td><?php echo htmlspecialchars($row["customer_id"]); ?></td>
                             <td><?php echo htmlspecialchars($row["fname"] . " " . $row["lname"]);?></td>
-                            <td><?php echo htmlspecialchars($row["username"]); ?></td>
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
-                            <td><?php echo htmlspecialchars($row["contact"]); ?></td>
                             <td><?php echo htmlspecialchars($row["region"]); ?></td>
                             <td><?php echo htmlspecialchars($row["district"]); ?></td>
                             <td><?php echo htmlspecialchars($row["gpscode"]); ?></td>
+                            <td><?php echo htmlspecialchars($row["meter_number"]); ?></td>
                             <td><?php echo htmlspecialchars($row["date"]); ?></td>
                             <td> 
                                 <form action="customer_edit.php" method="post">

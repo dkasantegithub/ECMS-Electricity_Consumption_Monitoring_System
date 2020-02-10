@@ -8,6 +8,7 @@
         unset($_SESSION["username"]);
         unset($_SESSION["admin"]);
         unset($_SESSION["superadmin"]);
+        unset($_SESSION["id"]);
         header("Location: login.php");
     }
 

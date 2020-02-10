@@ -10,15 +10,28 @@
         
         if(!empty($_POST["user_email"]) && !empty($_POST["password"])){
             #fetch data from database
-            $stmt = $connection->prepare("SELECT * FROM adminregister WHERE username='$username' OR email='$email' LIMIT 1");
+            $stmt = $connection->prepare("SELECT * FROM adminregister WHERE 
+                                        username='$username' OR email='$email' LIMIT 1");
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             //verify whether data exists
             if($stmt->rowCount() >  0){
                 if(password_verify($password, $row["password"])){
+                    $pwd = $row["password"];
                     $role = $row["admin_role"];
-                
+                    $admin_id = $row["admin_id"];
+                    $_SESSION["id"] = $row["admin_id"];
+
+            // verify whethet user already exist
+            $verify =  $connection->prepare("SELECT * FROM adminlogin WHERE user_email='$username' LIMIT 1");
+            $verify->execute();
+                    if(!($verify->rowCount() > 0)){
+                    //insert data into login table in ecms db
+                    $query = $connection->prepare("INSERT INTO adminlogin(user_email, pwdtoken, admin_id) 
+                                                VALUES('$username','$pwd', '$admin_id')");
+                    $query->execute();
+                    }
                     //set session for admin
                     if($role == "admin"){
                         $admin = $role;
@@ -32,6 +45,7 @@
                         $_SESSION["username"] = $username;
                         $_SESSION["superadmin"] = $superadmin;
                         header("Location: register.php");
+                        
 
                     }else{  $error = "Username or password is incorrect"; }
 
@@ -113,7 +127,6 @@
             </div>
         </div>
     </div>
-
-    <?php
+<?php
 include("includes/scripts.php");
 ?>

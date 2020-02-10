@@ -29,6 +29,7 @@ include("includes/header.php");
 
             //update customer info
             if(isset($_POST["update_btn"])){
+                    $id =  validate_data($_POST["edit_id"]);
                     $fname = validate_data($_POST["fname"]);
                     $lname = validate_data($_POST["lname"]);
                     $contact =validate_data($_POST["contact"]);
@@ -38,11 +39,12 @@ include("includes/header.php");
                     $region = validate_data($_POST["region"]);
                     $district = validate_data($_POST["district"]);
                     $gpscode = validate_data($_POST["gpscode"]);
+                    $meter_id = validate_data($_POST["meter_id"]);
 
                     $stmt = $connection->prepare("UPDATE customer SET fname='$fname', lname='$lname',
                             username='$username', email='$email', password='$password',
                             contact='$contact', region='$region', district='$district',
-                            gpscode='$gpscode' WHERE customer_id='$id'");
+                            gpscode='$gpscode', meter_id='$meter_id' WHERE customer_id='$id'");
                     $success = $stmt->execute();
 
                     if($success){
@@ -80,46 +82,46 @@ include("includes/header.php");
 
                 <!-- firstname-->
                 <div class="form-group">
-                    <input type="text" class="form-control" value="<?php echo $row['fname'] ?? "First Name"; ?>" name="fname" required>
+                    <input type="text" class="form-control" placeholder="first name" value="<?php echo $row['fname'] ?? ""; ?>" name="fname" required>
                 </div>
 
                 <!-- last Name -->
                 <div class="form-group">
-                    <input type="text" class="form-control" value="<?php echo $row['lname'] ?? "Last Name"; ?>" name="lname" required>
+                    <input type="text" class="form-control" placeholder="last name" value="<?php echo $row['lname'] ?? ""; ?>" name="lname" required>
                 </div>
 
                 <!-- contact-->
                 <div class="form-group">
-                    <input type="tel" class="form-control" value="<?php echo $row['contact'] ?? "Contact"; ?>" name="contact"
+                    <input type="tel" class="form-control" placeholder="contact" value="<?php echo $row['contact'] ?? ""; ?>" name="contact"
                         required>
                 </div>
 
                 <!-- email-->
                 <div class="form-group">
-                    <input type="email" class="form-control" value="<?php echo $row['email'] ?? "Email"; ?>" required>
+                    <input type="email" class="form-control" placeholder="email" value="<?php echo $row['email'] ?? ""; ?>"  name="email" required>
                 </div>
 
                 <!-- username -->
                 <div class="form-group">
-                    <input type="text" class="form-control" value="<?php echo $row['username'] ?? "Username"; ?>" name="username"
+                    <input type="text" class="form-control" placeholder="username" value="<?php echo $row['username'] ?? ""; ?>" name="username"
                         required>
                 </div>
 
                 <!-- password -->
                 <div class="form-group">
-                    <input type="password" class="form-control" value="<?php echo $row['password'] ?? "Password"; ?>" name="password"
+                    <input type="password" class="form-control" placeholder="password" value="<?php echo $row['password'] ?? ""; ?>" name="password"
                         required>
                 </div>
 
                 <!-- district-->
                 <div class="form-group">
-                    <input type="text" class="form-control" value="<?php echo $row['district'] ?? "District"; ?>" name="district"
+                    <input type="text" class="form-control" placeholder="district" value="<?php echo $row['district'] ?? ""; ?>" name="district"
                         required>
                 </div>
 
                 <!-- region-->
                 <div class="form-group">
-                    <select class="form-control" name="region">
+                    <select class="form-control" name="region" required>
                         <option value="">-Region-</option>
                         <option value="accra">Greater Accra</option>
                         <option value="ashanti">Ashanti</option>
@@ -142,9 +144,24 @@ include("includes/header.php");
 
                 <!-- gpscode-->
                 <div class="form-group">
-                    <input type="text" class="form-control" value="<?php echo $row['gpscode'] ?? "Gps-code"; ?>" name="gpscode"
+                    <input type="text" class="form-control" placeholder="gpscode" value="<?php echo $row['gpscode'] ?? ""; ?>" name="gpscode"
                         required>
                 </div>
+
+                <!-- meter number -->
+                <?php 
+                    $cont = $connection->prepare("SELECT * FROM meter");
+                    $cont->execute();
+                    if($cont->rowCount() > 0){
+                ?>
+                <div class="form-group">
+                    <select name="meter_id" class="form-control" required> 
+                    <?php  foreach($cont as $collect){ ?>
+                        <option value="<?php echo htmlspecialchars($collect["meter_id"]); ?>"><?php echo htmlspecialchars($collect["meter_number"]); ?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+                <?php } ?>
 
                 <!-- button -->
                 <div class="modal-footer">
@@ -152,10 +169,10 @@ include("includes/header.php");
                     <button type="submit" name="update_btn" class="btn btn-primary">Update</button>
                 </div>
             </form>
-            </div>
+        </div>
 </div>
 
-            <?php
+<?php
 include("includes/scripts.php");
 include("includes/footer.php");
 ?>
