@@ -53,8 +53,18 @@ include("includes/navbar.php");
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Meters</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800"> Yet To</div>
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Number Of Customers</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+
+              <?php
+                      //display number of admins
+                      $stmt = $connection->prepare("SELECT customer_id FROM customer ORDER BY customer_id");
+                      $stmt->execute();
+                      $row = $stmt->rowCount();
+                      echo "<div class='h5 mb-0 font-weight-bold text-gray-800' > $row </div>";
+                    ?>
+
+              </div>
             </div>
             <div class="col-auto">
               <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -139,6 +149,7 @@ include("includes/navbar.php");
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary text-center">Energy Consumption In kWh</h6>
         </div>
+        
         <!-- Card Body -->
         <div class="card-body">
           <div class="chart-pie mt-2 mb-4 pt-4 pb-4">

@@ -16,7 +16,7 @@ include("includes/header.php");
         </div>
         <div class="card-body">
 
-            <?php
+        <?php
             //edit function
             if(isset($_POST["edit_btn"])){
                 $id = $_POST["edit_id"];

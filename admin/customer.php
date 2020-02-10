@@ -74,7 +74,6 @@ if(isset($_POST["customer_btn"])){
                      VALUES('$fname', '$lname', '$username', '$email', '$password', '$contact', '$region', 
                             '$district', '$gpscode', '$login_id', '$meter_id')");
                     $stmt->execute();
-                    
                     }
                 }
 
@@ -91,105 +90,107 @@ if(isset($_POST["customer_btn"])){
 
 
 <!--Customer Modal -->
-<div class="modal fade" id="customer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Add Customer</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="modal-body">   
-            <!-- firstname-->
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="first name" name="fname" required>
+<div class="modal fade" id="customer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Add Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
-            <!-- last Name -->
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="last name" name="lname" required>
-            </div>
-            
-            <!-- contact-->
-            <div class="form-group">
-                <input type="tel" class="form-control" placeholder="contact number" name="contact" required>
-            </div>
-            
-            <!-- email-->
-            <div class="form-group">
-                <input type="email" class="form-control" placeholder="email" name="email" required>
-            </div>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="modal-body">
+                    <!-- firstname-->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="first name" name="fname" required>
+                    </div>
 
-            <!-- username -->
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="username" name="username" required>
-            </div>
+                    <!-- last Name -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="last name" name="lname" required>
+                    </div>
 
-            <!-- password -->
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="password" name="password" required>
-            </div>
-            
-            <!-- district-->
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="district" name="district" required>
-            </div>
-            
-            <!-- region-->
-            <div class="form-group"> 
-                <select class="form-control" name="region">
-                <option value="">-regions-</option>
-                <option value="accra">Greater Accra</option>
-                <option value="ashanti">Ashanti</option>
-                 <option value="eastern">Eastern</option>
-                <option value="central">Central</option>
-                 <option value="volta">Volta</option>
-                <option value="uwest">Upper West</option>
-                <option value="ueast">Upper East</option>
-                <option value="neast">North East</option>
-                <option value="northern">Northern</option>
-                <option value="savannah">Savannah</option>
-                <option value="oti">Oti</option>
-                <option value="bonoeast">Bono East</option>
-                <option value="brongahafo">Brong Ahafo</option>
-                <option value="ahafo">Ahafo</option>         
-                <option value="westernnorth">Western North</option>
-                <option value="western">Western</option>
-                </select>
-            </div>
-            
-            <!-- gpscode-->
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="gps-code" name="gpscode" required>
-            </div>
+                    <!-- contact-->
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="contact number" name="contact" required>
+                    </div>
 
-            <!-- meter number -->
-            <?php 
+                    <!-- email-->
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="email" name="email" required>
+                    </div>
+
+                    <!-- username -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="username" name="username" required>
+                    </div>
+
+                    <!-- password -->
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="password" name="password" required>
+                    </div>
+
+                    <!-- district-->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="district" name="district" required>
+                    </div>
+
+                    <!-- region-->
+                    <div class="form-group">
+                        <select class="form-control" name="region">
+                            <option value="">-regions-</option>
+                            <option value="accra">Greater Accra</option>
+                            <option value="ashanti">Ashanti</option>
+                            <option value="eastern">Eastern</option>
+                            <option value="central">Central</option>
+                            <option value="volta">Volta</option>
+                            <option value="uwest">Upper West</option>
+                            <option value="ueast">Upper East</option>
+                            <option value="neast">North East</option>
+                            <option value="northern">Northern</option>
+                            <option value="savannah">Savannah</option>
+                            <option value="oti">Oti</option>
+                            <option value="bonoeast">Bono East</option>
+                            <option value="brongahafo">Brong Ahafo</option>
+                            <option value="ahafo">Ahafo</option>
+                            <option value="westernnorth">Western North</option>
+                            <option value="western">Western</option>
+                        </select>
+                    </div>
+
+                    <!-- gpscode-->
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="gps-code" name="gpscode" required>
+                    </div>
+
+                    <!-- meter number -->
+                    <?php 
                 $cont = $connection->prepare("SELECT * FROM meter");
                 $cont->execute();
                 if($cont->rowCount() > 0){
             ?>
-            <div class="form-group">
-                <select name="meter_id" class="form-control" required> 
-                <?php  foreach($cont as $collect){ ?>
-                    <option value="<?php echo htmlspecialchars($collect["meter_id"]); ?>"><?php echo htmlspecialchars($collect["meter_number"]); ?></option>
-                <?php } ?>
-                </select>
-            </div>
-            <?php } ?>
+                    <div class="form-group">
+                        <select name="meter_id" class="form-control" required>
+                            <?php  foreach($cont as $collect){ ?>
+                            <option value="<?php echo htmlspecialchars($collect["meter_id"]); ?>">
+                                <?php echo htmlspecialchars($collect["meter_number"]); ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <?php } ?>
 
-            <!-- button -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name="customer_btn" class="btn btn-primary">Register</button>
-            </div>
+                    <!-- button -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="customer_btn" class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
 </div>
 
 
@@ -200,15 +201,15 @@ if(isset($_POST["customer_btn"])){
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-lg text-primary">Customer Info
-                 <!-- Button trigger modal -->
+                <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#customer">
-                Add Customer
+                    Add Customer
                 </button>
             </h6>
         </div>
-    
-    <!-- display error -->
-    <?php
+
+        <!-- display error -->
+        <?php
             if(isset($_SESSION["msg"]) && !empty($_SESSION["msg"])){
                 echo $_SESSION["msg"];
                 unset($_SESSION["msg"]);
@@ -223,7 +224,9 @@ if(isset($_POST["customer_btn"])){
                 <?php
                 // fetch data from database
                 try{
-                    $stmt = $connection->prepare("SELECT * FROM customer JOIN meter ON customer.meter_id=meter.meter_id");
+                    $stmt = $connection->prepare("SELECT customer.customer_id, customer.fname, customer.lname,
+                    customer.email, customer.region, customer.district, customer.gpscode, meter.meter_number,customer.date
+                    FROM customer JOIN meter ON customer.meter_id=meter.meter_id");
                     $stmt->execute();
                     $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 }catch(PDOException $e){
@@ -249,12 +252,20 @@ if(isset($_POST["customer_btn"])){
 
                     <tbody>
 
-                    <?php 
+                        <?php 
                     if($stmt->rowCount() > 0){
                         while($row = $stmt->fetch()){
                         ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($row["customer_id"]); ?></td>
+                            <td>
+                                <form action="customer_detail.php" method="post">
+                                    <input type="hidden" name="id"
+                                        value="<?php echo htmlspecialchars($row["customer_id"]); ?>">
+                                    <button type="submit" name="send" class="btn btn-secondary">
+                                        <?php echo htmlspecialchars($row["customer_id"]); ?>
+                                    </button>
+                                </form>
+                            </td>
                             <td><?php echo htmlspecialchars($row["fname"] . " " . $row["lname"]);?></td>
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
                             <td><?php echo htmlspecialchars($row["region"]); ?></td>
@@ -262,15 +273,17 @@ if(isset($_POST["customer_btn"])){
                             <td><?php echo htmlspecialchars($row["gpscode"]); ?></td>
                             <td><?php echo htmlspecialchars($row["meter_number"]); ?></td>
                             <td><?php echo htmlspecialchars($row["date"]); ?></td>
-                            <td> 
+                            <td>
                                 <form action="customer_edit.php" method="post">
-                                    <input type="hidden" name="edit_id" value="<?php echo htmlspecialchars($row["customer_id"]); ?>">
+                                    <input type="hidden" name="edit_id"
+                                        value="<?php echo htmlspecialchars($row["customer_id"]); ?>">
                                     <button type="submit" name="edit_btn" class="btn btn-success">EDIT</button>
                                 </form>
                             </td>
-                            <td> 
+                            <td>
                                 <form action="customer_edit.php" method="post">
-                                    <input type="hidden" name="delete_id" value="<?php  echo htmlspecialchars($row["customer_id"]); ?>">
+                                    <input type="hidden" name="delete_id"
+                                        value="<?php  echo htmlspecialchars($row["customer_id"]); ?>">
                                     <button type="submit" name="delete_btn" class="btn btn-danger">DELETE</button>
                                 </form>
                             </td>
