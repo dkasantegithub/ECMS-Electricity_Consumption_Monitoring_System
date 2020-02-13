@@ -3,7 +3,8 @@
     session_start();
 
 //connection to database
-require 'customerRegistration.inc.php';
+// require 'customerRegistration.inc.php';
+require 'autogeneration.php';
 
 ?>
 
@@ -26,27 +27,27 @@ require 'customerRegistration.inc.php';
         <div class="card" style="width: 350px">
             <div class="card-body">
                 <h4 class="card-title">Registration</h4>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
-                        <div class="form-group">
+                <form action="customerRegistration.php" method="POST">
+                    <div class="form-group">
                         <label for="firstName">First Name:</label>
                         <input type="text" class="form-control" placeholder="First Name" name="customerfName" >
-                            <span class="error"><?php echo $customerfNameErr ?></span><br>
+                            <!-- <span class="error"><?php echo $customerfNameErr ?></span><br> -->
 
                         <label for="lastName">Last Name:</label>
                         <input type="text" class="form-control" placeholder="Last Name" name="customerlName" >
-                            <span class="error"><?php echo $customerlNameErr ?></span><br>
+                            <!-- <span class="error"><?php echo $customerlNameErr ?></span><br> -->
 
                         <label for="contact">Contact:</label>
                         <input type="tel" class="form-control" placeholder="Contact Number" name="customerContact" >
-                            <span class="error"><?php echo $customerContactErr ?></span><br>
+                            <!-- <span class="error"><?php echo $customerContactErr ?></span><br> -->
 
                         <label for="Email">Email:</label>
                         <input type="email" class="form-control" placeholder="Email" name="customerEmail" >
-                            <span class="error"><?php echo $customerEmailErr ?></span><br>
+                            <!-- <span class="error"><?php echo $customerEmailErr ?></span><br> -->
 
                         <label for="Region">Region:</label>
                         <input type="text" class="form-control" placeholder="Region" name="customerRegion" >
-                            <span class="error"><?php echo $customerRegionErr ?></span><br>
+                            <!-- <span class="error"><?php echo $customerRegionErr ?></span><br> -->
 
                         <label for="District">District:</label>    
                             <select>
@@ -71,11 +72,15 @@ require 'customerRegistration.inc.php';
                             
                         <label for="GPSCode">GPSCode:</label>
                         <input type="text" class="form-control" placeholder="GPSCode" name="customerGPSCode" >
-                            <span class="error"><?php echo $customerGPSCodeErr ?></span><br>
+                            <!-- <span class="error"><?php echo $customerGPSCodeErr ?></span><br> -->
 
                     </div>
 
                     <input type="submit" name="register" value="Register">
+                        <?php if (isset($_POST['register'])) {
+                            error_reporting(0); echo nl2br("Username: $genUsername \n Password: $generatedMixedPass");
+                        }  
+                        ?> 
                 </form>
                 
             </div>

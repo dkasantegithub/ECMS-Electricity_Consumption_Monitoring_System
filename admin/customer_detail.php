@@ -29,7 +29,7 @@ include("includes/navbar.php");
 
     <div class="col-xl-5 col-lg-5">
 
-        <!-- Bar Chart -->
+        <!-- Customer Details -->
         <div class="card shadow mb-4 mr-3">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Info</h6>
@@ -104,6 +104,9 @@ include("includes/navbar.php");
 
     </div>
 </div>
+        <div class="text-center">
+            <a href="customer.php"> <i class="fa fa-arrow-circle-left"></i> Go back to main page</a>
+        </div>
 </div>
 <!-- /.container-fluid -->
 

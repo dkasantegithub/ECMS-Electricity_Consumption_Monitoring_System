@@ -70,8 +70,8 @@ if(isset($_POST["meter_btn"])){
 <div class="modal fade" id="meter" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Add Meter</h5>
+      <div class="modal-header modal-header-danger">
+        <h5 class="modal-title font-weight-bold w-100 text-center" id="modalLabel">Add Meter</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -82,18 +82,21 @@ if(isset($_POST["meter_btn"])){
     
             <!-- meter number-->
             <div class="form-group">
-                <input type="number" class="form-control" placeholder="meter number" name="meter_number" required>
+                <label class="font-weight-bold">Meter Number</label>
+                <input type="number" class="form-control" placeholder="Enter meter number" name="meter_number" required>
             </div>
             
             <!-- district-->
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="district" name="district" required>
+                <label class="font-weight-bold">District</label>
+                <input type="text" class="form-control" placeholder="Enter district" name="district" required>
             </div>
             
             <!-- region-->
             <div class="form-group"> 
+                <label class="font-weight-bold">Regions</label>
                 <select class="form-control" name="region" required>
-                <option value="">-regions-</option>
+                <option value="">-Select region-</option>
                 <option value="accra">Greater Accra</option>
                 <option value="ashanti">Ashanti</option>
                  <option value="eastern">Eastern</option>
@@ -115,12 +118,13 @@ if(isset($_POST["meter_btn"])){
             
             <!-- gpscode-->
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="gps-code" name="gpscode" required>
+                <label class="font-weight-bold">Gpscode</label>
+                <input type="text" class="form-control" placeholder="Enter gps-code" name="gpscode" required>
             </div>
 
             <!--status-->
             <div class="form-group">
-                <label>Status</label>
+                <label class="font-weight-bold">Status</label>
                 <select name="status" class="form-control">
                     <option value="unactive">Unactive</option>
                     <option value="active">Active</option>

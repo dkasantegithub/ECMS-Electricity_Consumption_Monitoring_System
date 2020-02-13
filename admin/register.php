@@ -30,10 +30,10 @@ include("includes/s_navbar.php");
 <!--Admin Modal -->
 <div class="modal fade" id="addadminprofile" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Add Admin Info</h5>
+            <div class="modal-header modal-header-danger">
+                <h5 class="modal-title font-weight-bolder w-100 text-center" id="modalLabel">Add Admin Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -41,58 +41,49 @@ include("includes/s_navbar.php");
 
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="modal-body">
+                
+                <div class="row mb-3">
                     <!-- firstname-->
-                    <label for="fname">First name</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        </div>
-                        <input type="text" class="form-control" id="fname" name="fname" required>
+                    <div class="col-6 form-group">
+                    <label class="font-weight-bold" for="fname">First Name</label>
+                        <input type="text" class="form-control" id="fname" placeholder="enter first name" name="fname" required>
                     </div>
 
                     <!-- lastname-->
-                    <label for="lname">Last name</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                        </div>
-                        <input type="text" class="form-control" id="lname" name="lname" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="lname">Last Name</label>
+                        <input type="text" class="form-control" id="lname" placeholder="enter last name" name="lname" required>
                     </div>
+                </div>
 
-
+                <div class="row mb-3">
                     <!-- username-->
-                    <label for="username">Username</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <i class="input-group-text fa fa-user-circle fa-lg"></i>
-                        </div>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="username">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="enter username" name="username" required>
                     </div>
 
                     <!-- email-->
-                    <label for="email">Email Address</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <i class="input-group-text fas fa-envelope fa-lg"></i>
-                        </div>
-                        <input type="text" class="form-control" id="email" name="email" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="email">Email Address</label>
+                        <input type="text" class="form-control" id="email" placeholder="enter email address" name="email" required>
                     </div>
+                </div>
 
 
+                <div class="row mb-3">
                     <!--password-->
-                    <label for="password">Password</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <i class="input-group-text fa fa-key fa-lg"></i>
-                        </div>
-                        <input type="text" class="form-control" id="password" name="password" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="password">Password</label>
+                        <input type="text" class="form-control" id="password" placeholder="enter password" name="password" required>
                     </div>
+                    
                     <!--confirm password -->
-                    <label for="cpwd">Confirm Password</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <i class="input-group-text fa fa-key fa-lg"></i>
-                        </div>
-                        <input type="text" class="form-control" id="cpwd" name="cpwd" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="cpwd">Confirm Password</label>
+                        <input type="text" class="form-control" id="cpwd" placeholder="confirm password" name="cpwd" required>
                     </div>
+                </div>
 
                     <!-- Role -->
                     <input type="hidden" name="role" value="admin">

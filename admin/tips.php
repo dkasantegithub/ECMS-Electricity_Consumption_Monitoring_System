@@ -43,8 +43,8 @@ include("includes/navbar.php");
 <div class="modal fade" id="tips" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Add Tip</h5>
+      <div class="modal-header modal-header-danger">
+        <h5 class="modal-title font-weight-bold w-100 text-center" id="modalLabel">Add Tip</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -54,7 +54,7 @@ include("includes/navbar.php");
         <div class="modal-body">        
             <!-- title-->
            <div class="form-group">
-                    <label>Title</label>
+                    <label class="font-weight-bold">Title</label>
                     <select name="title" class="form-control">
                         <option value="general">General tips</option>
                         <option value="room gadgets">Room gadget tips</option>
@@ -65,6 +65,7 @@ include("includes/navbar.php");
 
             <!-- tip-->
             <div class="form-group">
+                <label class="font-weight-bold">Tip</label>
                 <textarea name="tip" class="form-control" placeholder="enter tip" 
                 cols="15" rows="4" required></textarea>
             </div>

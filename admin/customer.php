@@ -92,10 +92,10 @@ if(isset($_POST["customer_btn"])){
 <!--Customer Modal -->
 <div class="modal fade" id="customer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Add Customer</h5>
+            <div class="modal-header modal-header-danger">
+                <h5 class="modal-title font-weight-bold w-100 text-center" id="modalLabel">Add Customer</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -103,45 +103,62 @@ if(isset($_POST["customer_btn"])){
 
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="modal-body">
-                    <!-- firstname-->
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="first name" name="fname" required>
+
+                <div class="row mb-2">
+                      <!-- firstname-->
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">First Name</label>
+                        <input type="text" class="form-control" placeholder="Enter first name" name="fname" required>
                     </div>
 
                     <!-- last Name -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="last name" name="lname" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Enter last name" name="lname" required>
                     </div>
-
-                    <!-- contact-->
-                    <div class="form-group">
-                        <input type="tel" class="form-control" placeholder="contact number" name="contact" required>
+                </div>
+                  
+                <div class="row mb-2">
+                  <!-- contact-->
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Contact</label>
+                        <input type="tel" class="form-control" placeholder="Enter phone number" name="contact" required>
                     </div>
 
                     <!-- email-->
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="email" name="email" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Email</label>
+                        <input type="email" class="form-control" placeholder="Enter email" name="email" required>
                     </div>
+                </div>
 
-                    <!-- username -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="username" name="username" required>
+
+                <div class="row mb-2">
+                     <!-- username -->
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Username</label>
+                        <input type="text" class="form-control" placeholder="Enter username" name="username" required>
                     </div>
 
                     <!-- password -->
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="password" name="password" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Password</label>
+                        <input type="password" class="form-control" placeholder="Enter password" name="password" required>
                     </div>
+                </div>
 
+                <div class="row mb-2">
                     <!-- district-->
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="district" name="district" required>
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">District</label>
+                        <input type="text" class="form-control" placeholder="Enter district" name="district" required>
                     </div>
 
                     <!-- region-->
-                    <div class="form-group">
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Region</label>
                         <select class="form-control" name="region">
-                            <option value="">-regions-</option>
+                            <option value="">-Select region-</option>
                             <option value="accra">Greater Accra</option>
                             <option value="ashanti">Ashanti</option>
                             <option value="eastern">Eastern</option>
@@ -160,10 +177,13 @@ if(isset($_POST["customer_btn"])){
                             <option value="western">Western</option>
                         </select>
                     </div>
+                </div>
 
-                    <!-- gpscode-->
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="gps-code" name="gpscode" required>
+                <div class="row mb-2">
+                     <!-- gpscode-->
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Gpscode</label>
+                        <input type="text" class="form-control" placeholder="Enter gps-code" name="gpscode" required>
                     </div>
 
                     <!-- meter number -->
@@ -172,7 +192,8 @@ if(isset($_POST["customer_btn"])){
                 $cont->execute();
                 if($cont->rowCount() > 0){
             ?>
-                    <div class="form-group">
+                    <div class="col-6 form-group">
+                        <label class="font-weight-bold" for="fname">Meter Number</label>
                         <select name="meter_id" class="form-control" required>
                             <?php  foreach($cont as $collect){ ?>
                             <option value="<?php echo htmlspecialchars($collect["meter_id"]); ?>">
@@ -182,6 +203,8 @@ if(isset($_POST["customer_btn"])){
                     </div>
                     <?php } ?>
 
+                </div>
+                   
                     <!-- button -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -239,7 +262,6 @@ if(isset($_POST["customer_btn"])){
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Email</th>
                             <th>Region</th>
                             <th>District</th>
                             <th>Gpscode</th>
@@ -267,7 +289,6 @@ if(isset($_POST["customer_btn"])){
                                 </form>
                             </td>
                             <td><?php echo htmlspecialchars($row["fname"] . " " . $row["lname"]);?></td>
-                            <td><?php echo htmlspecialchars($row["email"]); ?></td>
                             <td><?php echo htmlspecialchars($row["region"]); ?></td>
                             <td><?php echo htmlspecialchars($row["district"]); ?></td>
                             <td><?php echo htmlspecialchars($row["gpscode"]); ?></td>
