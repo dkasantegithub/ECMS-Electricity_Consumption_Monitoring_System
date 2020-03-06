@@ -71,7 +71,7 @@ include("includes/s_navbar.php");
                 </div>
 
 
-                <div class="row mb-3">
+                <div class="row mb-3 ">
                     <!--password-->
                     <div class="col-6 form-group">
                         <label class="font-weight-bold" for="password">Password</label>

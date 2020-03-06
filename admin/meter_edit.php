@@ -8,11 +8,11 @@ include("includes/header.php");
 
 <div class="container-fluid">
     <!-- data table -->
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-7 mx-auto">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <div class="m-0 font-weight-bold text-primary text-center">Edit Meter Info </div>
+            <div class="card shadow">
+                <div class="card-header bg-secondary py-3">
+                    <h5 class="m-0 font-weight-bold text-white w-100 text-center">Edit Meter Info </h5>
                 </div>
                 <div class="card-body">
 
@@ -82,20 +82,26 @@ include("includes/header.php");
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <input type="hidden" name="edit_id" value="<?php echo $row['meter_id']; ?>">
 
+            <div class="row">
                 <!-- meter number-->
-                <div class="form-group">
+                <div class="col-6 form-group">
+                     <label class="font-weight-bold">Meter Number</label>
                     <input type="text" class="form-control" value="<?php echo $row['meter_number'] ?? ""; ?>"
                         placeholder="Meter Number" name="meter_number" required>
                 </div>
 
                 <!-- district-->
-                <div class="form-group">
+                <div class="col-6 form-group">
+                    <label class="font-weight-bold">District</label>
                     <input type="text" class="form-control" value="<?php echo $row['district'] ?? ""; ?>"
                         placeholder="District" name="district" required>
                 </div>
+            </div>
 
+            <div class="row">
                 <!-- region-->
-                <div class="form-group">
+                <div class="col-6 form-group">
+                    <label class="font-weight-bold">Region</label>
                     <select class="form-control" name="region">
                         <option value="">-Region-</option>
                         <option value="accra">Greater Accra</option>
@@ -118,19 +124,25 @@ include("includes/header.php");
                 </div>
 
                 <!-- gpscode-->
-                <div class="form-group">
+                <div class="col-6 form-group">
+                    <label class="font-weight-bold">Gpscode</label>
                     <input type="text" class="form-control" value="<?php echo $row['gpscode'] ?? ""; ?>"
                         name="gpscode" placeholder="gpscode" required>
                 </div>
+            </div>
 
+            <div class="row">
+
+          
                 <!--status-->
-                <div class="form-group">
-                    <label>Status</label>
+                <div class="col-6 form-group">
+                    <label class="font-weight-bold">Status</label>
                     <select name="status" class="form-control">
                         <option value="unactive">Unactive</option>
                         <option value="active">Active</option>
                     </select>
                 </div>
+            </div>
 
                 <!-- button -->
                 <div class="modal-footer">
