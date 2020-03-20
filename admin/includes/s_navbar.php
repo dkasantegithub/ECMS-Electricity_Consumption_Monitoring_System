@@ -1,5 +1,8 @@
+<?php 
+  ob_start();
+?>
   <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
@@ -14,7 +17,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-          <a class="nav-link" href="register.php">
+          <a class="nav-link" href="../admin-register/register.php">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span></a>
       </li>
@@ -68,7 +71,7 @@
 
       <!-- Nav Item - Logout -->
       <li class="nav-item">
-          <a class="nav-link" href="control.inc.php" data-toggle="modal" data-target="#logoutModal">
+          <a class="nav-link" href="../control/control.inc.php" data-toggle="modal" data-target="#logoutModal">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
               <span>Logout</span>
           </a>
@@ -321,10 +324,11 @@
                       <div class="modal-footer">
                           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-                          <form action="control.inc.php" method="post">
+                          <form action="../control/control.inc.php" method="post">
                               <button type="submit" name="logout_btn" class="btn btn-primary">Logout</button>
                           </form>
                       </div>
                   </div>
               </div>
           </div>
+          <?php
