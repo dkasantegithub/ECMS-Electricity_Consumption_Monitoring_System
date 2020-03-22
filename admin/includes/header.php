@@ -18,6 +18,31 @@
   <link href="../styles/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- css styles -->
   <link rel="stylesheet" href="../styles/static/style.css">
+
+  <script type="text/javascript">
+
+	function nfunction() {
+		$.ajax({
+			url: "../notification/notification.php",
+			type: "POST",
+			processData:false,
+			success: function(data){
+				$("#notification-count").remove();					
+				// $("#notification-latest").show();$("#notification-latest").html(data);
+			},
+			error: function(){}           
+		});
+	 }
+	 
+	//  $(document).ready(function() {
+	// 	$('body').click(function(e){
+	// 		if ( e.target.id != 'notification-icon'){
+	// 			$("#notification-latest").hide();
+	// 		}
+	// 	});
+	// });
+		 
+	</script>
   </head>
   <body id="page-top">
 

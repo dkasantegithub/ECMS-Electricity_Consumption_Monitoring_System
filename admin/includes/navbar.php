@@ -62,7 +62,7 @@
 
         <!-- Nav Item - Notifications -->
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="../notification/npage.php">
             <i class="fas fa-bell fa-fw"></i>
             <span>Notifications</span></a>
         </li>
@@ -153,6 +153,82 @@
             </form>
           </div>
         </li>
+
+        <?php
+         
+          try{
+                $sstmt = $connection->prepare("SELECT * FROM notifications WHERE status=0");
+                $sstmt->execute();
+                $num = $sstmt->rowCount();
+
+                $count = 0;
+        ?>
+
+        <!-- Nav Item - Notification tab -->
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" onclick="nfunction()"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw" ></i>
+
+                <?php  if($num > 0) { ?>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter" id="notification-count">
+                  <?php  echo $num . "+"; ?>
+                </span>
+
+                <?php } ?>
+            </a>
+
+             
+            <!-- Dropdown - Alerts -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                    ecms Alert Center
+                </h6>
+
+                <?php while(($list = $sstmt->fetch()) &&  ($count < 5)){
+                  $count++;
+
+                   ?>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-primary">
+                            <i class="fas fa-file-alt text-white"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="small text-gray-500"><?php echo $list["date"]; ?></div>
+                        <span class="font-weight-bold"><?php echo $list["subject"]; ?></span>
+                    </div>
+                </a>                  
+                <?php    }
+                  }catch(PDOException $e){
+                        header("Location:../error/error.php?show=dberror");
+                          error_log("meter.php, SQL error=" .$e->getMessage());
+                          return;
+                    } if($num > 0){
+                  ?>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                    
+                    <?php }else{ ?>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="fas fa-exclamation-triangle text-white"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="font-weight-bold">No new notification</span>
+                    </div>
+                </a>                                 
+                    <?php }?>
+            </div>
+
+        </li>
+            
 
         
         <div class="topbar-divider d-none d-sm-block"></div>

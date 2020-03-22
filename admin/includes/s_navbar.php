@@ -56,7 +56,7 @@
 
       <!-- Nav Item - Notifications -->
       <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="../notification/npage.php">
               <i class="fas fa-bell fa-fw"></i>
               <span>Notifications</span></a>
       </li>

@@ -5,7 +5,7 @@ include("../includes/header.php");
 include("../includes/navbar.php"); 
 
         // Tips
-        if(isset($_POST["tips"]) && empty($_SESSION["tip"])){
+        if(isset($_POST["tips"])){
             $title = validate_data($_POST["title"]);
             $tips = validate_data($_POST["tip"]);
 
@@ -36,9 +36,6 @@ include("../includes/navbar.php");
                     return;
                 }
             }
-            $_SESSION["tip"] = 'true';
-        }else{
-            $_SESSION["tip"] = NULL;
         }
         
 ?>
