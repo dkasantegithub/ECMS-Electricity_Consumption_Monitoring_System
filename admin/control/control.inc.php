@@ -8,6 +8,7 @@
         unset($_SESSION["admin"]);
         unset($_SESSION["superadmin"]);
         unset($_SESSION["id"]);
+        unset($_SESSION["cid"]);
         session_destroy();
         header("Location: ../login/login.php");
     }

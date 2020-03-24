@@ -7,6 +7,24 @@ include("../includes/header.php");
 
 <div class="container-fluid">
     <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2 border rounded bg-light border-info mt-4">
+
+            <!-- Link to dashboard -->
+            <div class="mt-4 text-center">
+                <a href="../dashboard/index.php" class="btn btn-success mx-auto"> <i class="fa fa-arrow-circle-left"></i> to dashboard</a>
+            </div>
+
+            <!-- Link to customer page -->
+            <div class="mt-4 text-center">
+                <a href="../customer/customer.php" class="btn btn-info mx-auto pr-4"> <i class="fa fa-arrow-circle-left"></i> to customer </a>
+            </div>
+
+            <!-- Link to meter page -->
+             <div class="mt-4 text-center">
+                <a href="../meter/meter.php" class="btn btn-danger mx-auto pr-5"> <i class="fa fa-arrow-circle-left"></i> to meter</a>
+            </div>
+        </div>
+
         <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
             
             <div class="card bg-light border-success mt-4 mb-2">

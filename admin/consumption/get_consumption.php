@@ -37,25 +37,28 @@
         if(!empty($_POST['energyConsumed'])){
             $energy = $_POST['energyConsumed'];
 
-            //check whether there is a consumption with today's date
-            $stmt = $connection->prepare("SELECT id, energy_consumed, date FROM econsumed WHERE date=CURDATE() LIMIT 1");
+            // get customer id from nodemcu or gsm[contact of sim which is unique for all gsm]
+            $customer_id = 17;
+
+            //check whether there is a consumption with today's date and customer_id
+            $stmt = $connection->prepare("SELECT * FROM consumption WHERE date=CURDATE() && customer_id='$customer_id' LIMIT 1");
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             //if yes, update the consumption value
             if($stmt->rowCount()>0){
-                $id = $row["id"];
+                $cid = $row["customer_id"];
                 $date = $row["date"];
                 
                 //update consumption value with value from meter
                 $energy_consumed = $row["energy_consumed"];
                 $energy_consumed += $energy;
-                $update = $connection->prepare("UPDATE econsumed SET energy_consumed='$energy_consumed' WHERE date='$date'");
+                $update = $connection->prepare("UPDATE consumption SET energy_consumed='$energy_consumed' WHERE date='$date' && customer_id='$cid'");
                 $update->execute();
             
             //else insert consumption into a new field
             }else{
-                $insert = $connection->prepare("INSERT INTO econsumed(energy_consumed) VALUES('$energy')");
+                $insert = $connection->prepare("INSERT INTO consumption(energy_consumed, customer_id) VALUES('$energy', '$customer_id')");
                 $insert->execute();
             }
     }

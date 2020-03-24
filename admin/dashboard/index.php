@@ -57,7 +57,7 @@ include("../includes/navbar.php");
 
               <?php
                   try{
-                      //display number of admins
+                      //display total number of customers
                       $stmt = $connection->prepare("SELECT customer_id FROM customer ORDER BY customer_id");
                       $stmt->execute();
                       $row = $stmt->rowCount();
@@ -79,38 +79,72 @@ include("../includes/navbar.php");
       </div>
     </div>
 
-    <!-- Total Consumption -->
+    <!-- Total Meters -->
     <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-left-info shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Consumption</div>
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Meters</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> Yet To</div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                  
+                   <?php
+                  try{
+                      //display total number of meter
+                      $stmt = $connection->prepare("SELECT meter_id FROM meter ORDER BY meter_id");
+                      $stmt->execute();
+                      $row = $stmt->rowCount();
+                      echo "<div class='h5 mb-0 font-weight-bold text-gray-800' > $row </div>";
+                    }catch(PDOException $e){
+                      header("Location:../error/error.php?show=dberror");
+                      error_log("index.php, SQL error=" .$e->getMessage());
+                      return;
+                    }
+                    ?>
+
+                  </div>
                 </div>
               </div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-lightbulb fa-2x text-gray-300"></i>
+              <i class="fas fa-tachometer-alt fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Total Power -->
+    <!-- Total Consumption -->
     <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-left-warning shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Power</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">Yet To</div>
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Consumption</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+              
+               <?php
+                  try{
+                      //display total consumption
+                      $stmt = $connection->prepare("SELECT SUM(energy_consumed) AS total FROM consumption");
+                      $stmt->execute();
+                      $row = $stmt->fetch();
+                      $total = $row["total"];
+                      echo "<div class='h5 mb-0 font-weight-bold text-gray-800' > $total
+                       <small class='text-success font-weight-bold'> kWh </small></div>";
+                    }catch(PDOException $e){
+                      header("Location:../error/error.php?show=dberror");
+                      error_log("index.php, SQL error=" .$e->getMessage());
+                      return;
+                    }
+                    ?>
+
+              </div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-battery-full fa-2x text-gray-300"></i>
+              <i class="fas fa-lightbulb fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -128,11 +162,11 @@ include("../includes/navbar.php");
       <!-- Bar Chart -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary text-center">Energy Consumption In kWh</h6>
+          <h6 class="m-0 font-weight-bold text-primary text-center">Total Energy Consumption In kWh</h6>
         </div>
         <div class="card-body">
           <div class="chart-bar">
-            <canvas id="consumerChart"></canvas>
+            <canvas id="totalConsumptionChart"></canvas>
           </div>
           <hr>
           <div class="text-primary text-center"> Electricity Consumption Of All Regions In Ghana...</div>
