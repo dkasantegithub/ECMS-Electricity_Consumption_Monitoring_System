@@ -159,7 +159,7 @@ include("../includes/navbar.php");
 
     <div class="col-xl-8 col-lg-7">
 
-      <!-- Bar Chart -->
+      <!--Total Consumption Given Specific Date Bar Chart -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary text-center">Total Energy Consumption In kWh</h6>
@@ -169,13 +169,13 @@ include("../includes/navbar.php");
             <canvas id="totalConsumptionChart"></canvas>
           </div>
           <hr>
-          <div class="text-primary text-center"> Electricity Consumption Of All Regions In Ghana...</div>
+          <div class="text-primary text-center"> Energy Consumption Given Specific Dates In Ghana...</div>
         </div>
       </div>
 
     </div>
 
-    <!-- Donut Chart -->
+    <!-- Regional Consumption Chart -->
     <div class="col-xl-4 col-lg-5">
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
@@ -186,10 +186,10 @@ include("../includes/navbar.php");
         <!-- Card Body -->
         <div class="card-body">
           <div class="chart-pie mt-2 mb-4 pt-4 pb-4">
-            <canvas id="myPieChart"></canvas>
+            <canvas id="regionalChart"></canvas>
           </div>
           <hr>
-          <div class="text-primary text-center"> Electricity Consumption Of All Regions In Ghana...</div>
+          <div class="text-primary text-center"> Energy Consumption Of All Regions In Ghana...</div>
         </div>
       </div>
     </div>

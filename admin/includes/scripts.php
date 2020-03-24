@@ -16,6 +16,7 @@
       <script src="../styles/js/demo/chart-pie-demo.js"></script>
       <script src="../styles/js/demo/customer-bar-chart.js"></script>
       <script src="../styles/js/demo/total-consumption-bar-chart.js"></script>
+      <script src="../styles/js/demo/total-consumption-in-regions.js"></script>
 
       <!-- Page level plugins -->
       <script src="../styles/vendor/datatables/jquery.dataTables.min.js"></script>

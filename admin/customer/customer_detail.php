@@ -93,7 +93,7 @@ include("../includes/navbar.php");
                             </tr>
                             <tr>
                                 <th>Date Created</th>
-                                <td><?php echo htmlspecialchars($row["CURDATE()"]); ?></td>
+                                <td><?php echo htmlspecialchars($row["date"]); ?></td>
                             </tr>
                             <?php 
                             }
