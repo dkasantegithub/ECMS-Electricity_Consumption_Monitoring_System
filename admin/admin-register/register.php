@@ -17,7 +17,7 @@ include("../includes/s_navbar.php");
         $role = $_POST["role"];
 
         if($user->signup($fname, $lname, $username, $email, $pwd, $cpwd,$role)){
-            $_SESSION["msg"] = "<script>alert('Registration successfull.');</script>";
+            $_SESSION["msg"] = '<div class="alert alert-success text-center" role="alert">customer registration SUCCESSFUL</div>';
 
         }else{
             $_SESSION["error"] = $user->sError;
@@ -106,9 +106,9 @@ include("../includes/s_navbar.php");
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-lg text-primary">Admin Info
+            <h6 class="m-0 font-weight-bold text-lg text-secondary">Admin Info
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+                <button type="button" class="btn btn-secondary float-right" data-toggle="modal"
                     data-target="#addadminprofile">
                     Add Admin
                 </button>
@@ -141,15 +141,15 @@ include("../includes/s_navbar.php");
                 }
                 ?>
 
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="bg-success text-bold text-white">
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Date : Time Created</th>
+                            <th>Date Created</th>
                             <th>EDIT</th>
                             <th>DELETE</th>
                         </tr>
@@ -167,22 +167,43 @@ include("../includes/s_navbar.php");
                             <td><?php echo htmlspecialchars($row["username"]); ?></td>
                             <td><?php echo htmlspecialchars($row["email"]); ?></td>
                             <td><?php echo htmlspecialchars($row["admin_role"]); ?></td>
-                            <td><?php echo htmlspecialchars($row["date"] . " : " . $row["time"]); ?></td>
+                            <td><?php echo htmlspecialchars($row["date"]); ?></td>
                             <td>
                                 <form action="register_edit.php" method="post">
                                     <input type="hidden" name="edit_id"
                                         value="<?php echo htmlspecialchars($row["admin_id"]); ?>">
-                                    <button type="submit" name="edit_btn" class="btn btn-success">EDIT</button>
+                                    <button type="submit" name="edit_btn" class="btn btn-info">EDIT</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="register_edit.php" method="post">
-                                    <input type="hidden" name="delete_id"
-                                        value="<?php  echo htmlspecialchars($row["admin_id"]); ?>">
-                                    <button type="submit" name="delete_btn" class="btn btn-danger">DELETE</button>
-                                </form>
+                                <button type="button" class="btn btn-warning deletebtn">DELETE</button>
                             </td>
                         </tr>
+
+                         <!-- delete Modal-->
+                        <div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header modal-header-danger">
+                                <h5 class="modal-title font-weight-bold w-100 text-center" id="exampleModalLabel">Delete Confirmation</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                </div>
+                                <div class="modal-body w-100 text-center">Are you sure you want to delete this?</div>
+                                
+                                <div class="modal-footer">
+                                    <button class="btn btn-success" type="button" data-dismiss="modal">No, cancel</button>
+                                
+                                    <form action="register_edit.php" method="post">
+                                        <input type="hidden" name="delete_id" id="delete_id">
+                                        <button type="submit" name="delete_btn" class="btn btn-warning">Yes, delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
                         <?php }
                     }
                     ?>
@@ -199,3 +220,19 @@ include("../includes/s_navbar.php");
 include("../includes/scripts.php");
 include("../includes/footer.php");
 ?>
+
+<!-- delete modal script -->
+<script>
+    $(document).ready( function() {
+        $('.deletebtn').on('click', function(){
+            $('#delete').modal('show');
+
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function(){
+                return $(this).text();
+            }).get();
+
+            $('#delete_id').val(data[0]);
+        });
+    });
+</script>

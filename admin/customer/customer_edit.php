@@ -130,8 +130,13 @@ include("../includes/navbar.php");
                     <!-- password -->
                     <div class="col-6 form-group">
                         <label class="font-weight-bold" for="fname">Password</label>
-                        <input type="password" class="form-control" placeholder="password" value="<?php echo $row['password'] ?? ""; ?>" name="password"
+                        <div class="form-inline">
+                            <input type="password" class="form-control pr-5" id="pswd" placeholder="password" value="<?php echo $row['password'] ?? ""; ?>" name="password"
                             required>
+                            <button type="button" id="btn" class="bg-info btn btn-2x rounded border-0 ">
+                                <i class="fas fa-eye fa-lg text-white"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

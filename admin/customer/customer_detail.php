@@ -39,7 +39,7 @@ include("../includes/navbar.php");
                         <canvas id="consumerChart"></canvas>
                     </div>
                     <hr>
-                    <div class="text-primary text-center"> Electricity Consumption Of All Regions In Ghana...</div>
+                    <div class="text-primary text-center"> Energy Consumption-With-Dates In Ghana...</div>
                 </div>
             </div>
         </div>
