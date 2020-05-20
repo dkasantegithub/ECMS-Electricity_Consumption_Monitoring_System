@@ -77,16 +77,17 @@
     }
 ?>
 
-<body>
+<body style="background-color:rgb(245, 251, 255);">
     <div class='container-fluid'>
         <div class='row'>
-            <div class='col-sm-4 col-md-4 col-lg-4 mx-auto'>
-                <!-- image -->
-                <div class='text mb-4 text-center'>
-                    <img src="../images/pic4.png" class="img-fluid" style="max-width: 20%;" alt="login-icon">
-                    <h2>Sign-In</h2>
+            <div class='card mx-auto border shadow mb-5 mt-3 rounded'>
+                <div class="card-header shadow-sm rounded">
+                    <!-- image -->
+                    <div class='m-1'>
+                        <img src="../images/pic4.png" class="img-fluid" style="max-width:7%;" alt="login-icon">
+                        <span class="h4 ml-2 text-uppercase font-weight-normal">consumption monitoring system</span>
+                    </div>
                 </div>
-
                 <!-- display error -->
                 <?php if(isset($error)) {  ?>
                 <div class="alert alert-danger error text-center mb-3">
@@ -95,41 +96,40 @@
                 </div>
                 <?php } ?>
 
-                <div class='card-login'>
-                    <div class='card-body-login p-4'>
-                        <!-- Form -->
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class='card-body'>
+                    <!-- Form -->
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-                            <!--username field -->
-                            <div class="form-inline border-bottom mt-4 mb-3 text-secondary">
-                                <i class="fa fa-user-circle fa-lg"></i>
-                                <input type="text" class="h5 ml-3 pr-5 border-0" name="user_email"
-                                    placeholder="username or email"
-                                    value="<?php echo htmlspecialchars($_POST['user_email'] ?? ''); ?>">
-                            </div>
+                        <!--username field -->
+                        <div class="form-inline border-bottom mt-4 mb-3">
+                            <i class="fa fa-user-circle fa-lg text-success"></i>
+                            <input type="text" class="ml-3 pr-5 border-0 text-secondary" name="user_email"
+                                placeholder="username or email"
+                                value="<?php echo htmlspecialchars($_POST['user_email'] ?? ''); ?>">
+                        </div>
 
-                            <!--password field -->
-                            <div class="form-inline border-bottom mt-4 mb-3 text-secondary ">
-                                <i class="fa fa-key fa-lg"></i>
-                                <input id="pwd" type="password" placeholder="password"
-                                    class="h5 ml-3 pr-5 border-0 ml-1 pr-5" name="password">
-                                <button type="button" id="btn" class="bg-white rounded border-0 ml-auto">
-                                    <i class="fas fa-eye fa-lg text-secondary"></i>
-                                </button>
-                            </div>
+                        <!--password field -->
+                        <div class="form-inline border-bottom mt-4 mb-3">
+                            <i class="fa fa-key fa-lg text-success"></i>
+                            <input id="pwd" type="password" placeholder="password"
+                                class="ml-3 pr-5 border-0 ml-1 pr-5 text-secondary" name="password">
+                            <button type="button" id="btn" class="bg-white rounded border-0 ml-auto">
+                                <i class="fas fa-eye fa-lg text-secondary"></i>
+                            </button>
+                        </div>
 
 
-                            <!-- Button -->
-                            <div class='form-group text-center mt-4'>
-                                <input type="hidden" name="login" value="submit">
-                                <button type="submit" class="btn btn-success btn-block">Sign in</button>
-                            </div>
-                        </form>
-                    </div>
+                        <!-- Button -->
+                        <div class='form-group text-center mt-4'>
+                            <input type="hidden" name="login" value="submit">
+                            <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-<?php
+    </div>
+    <?php
 include("../includes/scripts.php");
 ?>

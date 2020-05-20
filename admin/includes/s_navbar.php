@@ -61,11 +61,11 @@
         </li> -->
 
         <!-- Nav Item - Notifications -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="../notification/npage.php">
             <i class="fas fa-bell fa-fw"></i>
             <span>Notifications</span></a>
-        </li>
+        </li> -->
 
         <!-- Nav Item - Incentives -->
         <!-- <li class="nav-item">

@@ -33,14 +33,7 @@
 			error: function(){}           
 		});
 	 }
-	 
-	//  $(document).ready(function() {
-	// 	$('body').click(function(e){
-	// 		if ( e.target.id != 'notification-icon'){
-	// 			$("#notification-latest").hide();
-	// 		}
-	// 	});
-	// });
+
 		 
 	</script>
   </head>

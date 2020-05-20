@@ -1,15 +1,18 @@
 body{ 
     
     margin-top:5%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family:'Times New Roman', Times, serif;
+    background-color: rgb(91, 184, 207);
     background-size: cover;
     background-repeat: no-repeat;
     overflow-x: hidden;
     overflow-y: hidden;
     height: 100vh;
+    color: rgb(11, 11, 51);
 }
 
 .container-fluid{
+    font-family:'Times New Roman', Times, serif;
     margin-bottom: 5%;
     margin-bottom: 10%;
 }
@@ -17,6 +20,7 @@ body{
     color:black;
     border:3px ridge;
     border-radius:5%;
+    font-size: 16px;
 }
 
 .btn{

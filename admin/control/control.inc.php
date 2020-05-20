@@ -1,6 +1,10 @@
 <?php
     include("security.inc.php");
 
+    if(!empty($_SESSION["username"])  && !$_SESSION["admin"]){
+        $user->redirect('../admin-register/register.php');
+      }
+      
     //logout
     if(isset($_POST["logout_btn"])){
         $user->logout();

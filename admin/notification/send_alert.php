@@ -62,7 +62,7 @@ include("../includes/header.php");
 
             }catch(PDOException $e){
                 header("Location:../error/error.php?show=dberror");
-                error_log("meter.php, SQL error=" .$e->getMessage());
+                error_log("send_alert.php, SQL error=" .$e->getMessage());
                 return;
             }
         }

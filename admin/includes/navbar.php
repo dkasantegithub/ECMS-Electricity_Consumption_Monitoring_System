@@ -69,7 +69,7 @@
 
         <!-- Nav Item - Incentives -->
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="../incentives/incentives.php">
             <i class="fas fa-fw fa-gift"></i>
             <span>Incentives</span></a>
         </li>
@@ -166,7 +166,7 @@
 
         <!-- Nav Item - Notification tab -->
         <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" onclick="nfunction()"
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw" ></i>
 
@@ -191,7 +191,7 @@
                   $count++;
 
                    ?>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" href="../notification/npage.php">
                     <div class="mr-3">
                         <div class="icon-circle bg-primary">
                             <i class="fas fa-file-alt text-white"></i>
@@ -210,10 +210,10 @@
                           return;
                     } if($num > 0){
                   ?>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                <a class="dropdown-item text-center small text-gray-500" href="../notification/npage.php">Show All Alerts</a>
                     
                     <?php }else{ ?>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
+                  <a class="dropdown-item d-flex align-items-center">
                     <div class="mr-3">
                         <div class="icon-circle bg-warning">
                             <i class="fas fa-exclamation-triangle text-white"></i>
