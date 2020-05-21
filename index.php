@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="../styles/static/index.css">
+    <link rel="stylesheet" href="admin/styles/static/index.css">
     <title>ecms-admin-login</title>
 </head>
 
 <?php
     //collect data from form db and verify
-    require("../control/connection.inc.php");
+    require("admin/control/connection.inc.php");
     
     if(isset($_POST["login"])){
         $username = $_POST["user_email"];
@@ -51,14 +51,14 @@
                         $admin = $role;
                         $_SESSION["username"] = $username;
                         $_SESSION["admin"] = $admin;
-                        header("Location: ../dashboard/index.php");
+                        header("Location: admin/dashboard/index.php");
 
                     //set session for superadmin
                     }elseif($role == "superadmin"){
                         $superadmin = $role;
                         $_SESSION["username"] = $username;
                         $_SESSION["superadmin"] = $superadmin;
-                        header("Location: ../admin-register/register.php");
+                        header("Location: admin/admin-register/register.php");
                         
 
                     }else{  $error = "Username or password is incorrect"; }
@@ -70,8 +70,8 @@
             $error = "Username or password is required";
         }
     }catch(PDOException $e){
-                header("Location:../error/error.php?show=dberror");
-                error_log("login.php, SQL error=" .$e->getMessage());
+                header("Location:admin/error/error.php?show=dberror");
+                error_log("index.php, SQL error=" .$e->getMessage());
                 return;
             }
     }
@@ -84,7 +84,7 @@
                 <div class="card-header shadow-sm rounded">
                     <!-- image -->
                     <div class='m-1'>
-                        <img src="../images/pic4.png" class="img-fluid" style="max-width:7%;" alt="login-icon">
+                        <img src="admin/images/pic4.png" class="img-fluid" style="max-width:7%;" alt="login-icon">
                         <span class="h4 ml-2 text-uppercase font-weight-normal">consumption monitoring system</span>
                     </div>
                 </div>
@@ -131,5 +131,5 @@
     </div>
     </div>
     <?php
-include("../includes/scripts.php");
+include("admin/includes/scripts.php");
 ?>
